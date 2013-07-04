@@ -1,0 +1,6 @@
+[submodule "mac"]
+	path = mac
+	url = git@github.com:youchenlee/config-mac.git
+[submodule "linux"]
+	path = linux
+	url = git@github.com:youchenlee/config-linux.git
