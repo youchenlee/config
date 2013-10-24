@@ -1,3 +1,5 @@
+execute pathogen#infect()
+
 syntax on
 set encoding=utf8
 set tabstop=4
@@ -40,6 +42,9 @@ endfunction
 
 "colorscheme distinguished
 colorscheme distinguished-yoyo
+"colorscheme autumnleaf
+"colorscheme nuvola
+"colorscheme oceanlight
 "colorscheme railscasts
 "colorscheme grb256
 
@@ -102,3 +107,23 @@ onoremap <silent> ]l :call NextIndent(0, 1, 0, 1)<CR>
 onoremap <silent> [L :call NextIndent(1, 0, 1, 1)<CR>
 onoremap <silent> ]L :call NextIndent(1, 1, 1, 1)<CR>
 
+nmap <F8> :TagbarToggle<CR>
+
+
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+let g:airline_powerline_fonts = 1
+
+set laststatus=2
+
+let g:tagbar_sort = 0
+
+autocmd FileType php nested :call tagbar#autoopen(0)
+"let g:tagbar_phpctags_bin='~/bin/phpctags'
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType c set omnifunc=ccomplete#Complete
