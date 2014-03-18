@@ -1,0 +1,2 @@
+#!/bin/sh
+egrep --color -r 'URGENT|SECURITY|FIXME|TODO|PERFORMANCE|XXX' *

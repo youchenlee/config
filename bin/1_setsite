@@ -1,0 +1,14 @@
+#!/bin/bash
+if [ -z "$1" -o -z "$2" ]; then
+    echo "Usage: setsite <Path to website> <name>"
+    echo "Exsample: setsite ~/Sites/project-blah test3"
+    exit 1
+fi
+
+siteurl=$1
+sitename=$2
+
+rm -f ~/Sites/$sitename
+ln -s $siteurl ~/Sites/$sitename
+open http://$sitename.localhost
+
