@@ -59,8 +59,7 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 if [ "$color_prompt" = yes ]; then
-    git_remote=$(__git_remotes | paste -sd ',')
-    PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w \[\033[01;36m\]|$git_remote$(__git_ps1)\[\033[00m\]\$ "
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \[\033[01;36m\]|$(__git_ps1 " (%s)")\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -115,21 +114,21 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-export EDITOR="emacs -nw"
+export EDITOR="emacsclient"
 alias emacs="emacs -nw"
-export PATH="~/config/bin/:~/bin:$PATH:~/android-studio/bin/"
 export CLUTTER_IM_MODULE="ibus"
 export GTK_IM_MODULE="ibus"
 export QT4_IM_MODULE="ibus"
 export QT_IM_MODULE="ibus"
 export XMODIFIERS=@im=ibus
 
-alias et="emacs -nw /home/copyleft/Dropbox/10_ORG/TODO.org.txt"
-alias en="emacs -nw /home/copyleft/Dropbox/10_ORG/Notebook.org.txt"
-alias ej="emacs -nw /home/copyleft/Dropbox/10_ORG/WorkJournal.org.txt"
-alias ef="emacs -nw /home/copyleft/Dropbox/10_ORG/Contact.org.txt"
-alias ec="emacs -nw /home/copyleft/Dropbox/10_ORG/Contact.org.txt"
-alias ed="emacs -nw /home/copyleft/Dropbox/10_ORG/LifeDiary.org.txt"
+alias e="emacsclient"
+alias et="emacsclient -nw /home/copyleft/Dropbox/10_ORG/TODO.org.txt"
+alias en="emacsclient -nw /home/copyleft/Dropbox/10_ORG/Notebook.org.txt"
+alias ej="emacsclient -nw /home/copyleft/Dropbox/10_ORG/WorkJournal.org.txt"
+alias ef="emacsclient -nw /home/copyleft/Dropbox/10_ORG/Contact.org.txt"
+alias ec="emacsclient -nw /home/copyleft/Dropbox/10_ORG/Contact.org.txt"
+alias ed="emacsclient -nw /home/copyleft/Dropbox/10_ORG/LifeDiary.org.txt"
 alias naverline="env LC_ALL=zh_TW.UTF-8 WINPREFIX=~/LINE/ wine ~/LINE/Line.exe"
 alias evernote=" wine ~/.wine/drive_c/Program\ Files\ \(x86\)/Evernote/Evernote/Evernote.exe"
 alias kindle="wine /home/copyleft/.wine/drive_c/Program\ Files\ \(x86\)/Amazon/Kindle/Kindle.exe"
@@ -151,3 +150,4 @@ todo
 
 ### Added by the Heroku Toolbelt
 export PATH="~/.gem/ruby/1.9.1/bin/:/usr/local/heroku/bin:$PATH"
+export PATH="~/bin:~/config/bin/:$PATH:~/android-studio/bin/"
