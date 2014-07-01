@@ -95,16 +95,21 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # switch to workspace
-bindsym $mod+1 workspace 1: browser
-bindsym $mod+2 workspace 2: editor
-bindsym $mod+3 workspace 3: terminal
-bindsym $mod+4 workspace 4: db
-bindsym $mod+5 workspace 5: Project A
-bindsym $mod+6 workspace 6: Project B
-bindsym $mod+7 workspace 7: Project C
-bindsym $mod+8 workspace 8: wiki
-bindsym $mod+9 workspace 9: chat
-bindsym $mod+0 workspace 10: community
+bindsym $mod+grave  workspace 0: ----
+bindsym $mod+1  workspace  1: Wiki
+bindsym $mod+F1 workspace 11: Wiki Read
+bindsym $mod+2  workspace  2: Browser
+bindsym $mod+F2 workspace 12: Browser Read
+bindsym $mod+3  workspace  3: Terminal
+bindsym $mod+F3 workspace 13: Terminal Read
+bindsym $mod+4  workspace  4: Editor
+bindsym $mod+F4 workspace 14: Editor Read
+bindsym $mod+5 workspace 5: DB
+bindsym $mod+6 workspace 6: Drawing
+bindsym $mod+7 workspace 7: Project A
+bindsym $mod+8 workspace 8: Project B
+bindsym $mod+9 workspace 9: Chat
+bindsym $mod+0 workspace 10: Community
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
