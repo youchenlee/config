@@ -142,6 +142,12 @@ function 3_grep () {
     grep -i -B 5 -A 10 $1 ~/Dropbox/10_ORG/Notebook.org.txt
 }
 
+function 3_tcpdump() {
+    interface=wlan0
+    port=$1
+    sudo tcpdump port $port -s 10000  -i $interface -w -
+}
+
 #linuxlogo
 cat ~/.motdnotes
 todo
@@ -151,3 +157,12 @@ todo
 ### Added by the Heroku Toolbelt
 export PATH="~/.gem/ruby/1.9.1/bin/:/usr/local/heroku/bin:$PATH"
 export PATH="~/bin:~/config/bin/:$PATH:~/android-studio/bin/"
+#PATH=$HOME/bin:/home/y/bin:/opt/local/bin:/usr/local/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/sbin:/usr/X11R6/bin:/opt/local/sbin:/usr/texbin; export PATH
+#export PATH
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+export LC_MESSAGES=en_US.UTF-8
+
+
+source ~/.bashrc.gopath
