@@ -1,0 +1,3 @@
+#!/bin/sh
+ssh-add ~/.ssh/id_rsa.utcr.org
+ssh-add ~/.ssh/id_rsa-bitbucket
