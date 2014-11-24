@@ -97,46 +97,45 @@ bindsym $mod+a focus parent
 # switch to workspace
 bindsym $mod+grave  workspace 0:--
 
-bindsym $mod+1      workspace  1: Wiki
-bindsym $mod+F1     workspace 11: Wiki Read
+bindsym $mod+1      workspace  1: Browser
+bindsym $mod+F1     workspace 11: Browser
 
-bindsym $mod+2      workspace  2: Browser
-bindsym $mod+F2     workspace 12: Browser
+bindsym $mod+2      workspace  2: Terminal
+bindsym $mod+F2     workspace 12: Terminal
 
-bindsym $mod+3      workspace  3: Terminal
-bindsym $mod+F3     workspace 13: Terminal
+bindsym $mod+3      workspace  3: Editor
+bindsym $mod+F3     workspace 13: Editor
 
-bindsym $mod+4      workspace  4: Editor
-bindsym $mod+F4     workspace 14: Editor
+bindsym $mod+4      workspace  4: DB
+bindsym $mod+5      workspace  5: Drawing
+bindsym $mod+6      workspace  6: Project A
+bindsym $mod+7      workspace  7: Project B
+bindsym $mod+8      workspace  8: Chat
+bindsym $mod+9      workspace  9: Community
 
-bindsym $mod+5      workspace  5: DB
-bindsym $mod+6      workspace  6: Drawing
-bindsym $mod+7      workspace  7: Project A
-bindsym $mod+8      workspace  8: Project B
-bindsym $mod+9      workspace  9: Chat
-bindsym $mod+0      workspace 10: Community
+bindsym $mod+0      workspace 10: Wiki
+
 
 bindsym $mod+Tab workspace back_and_forth
 
 
 # move focused container to workspace
-bindsym $mod+Shift+1      move container to workspace  1: Wiki
-bindsym $mod+Shift+F1     move container to workspace 11: Wiki
 
-bindsym $mod+Shift+2      move container to workspace  2: Browser
-bindsym $mod+Shift+F2     move container to workspace 12: Browser
+bindsym $mod+Shift+1      move container to workspace  1: Browser
+bindsym $mod+Shift+F1     move container to workspace 11: Browser
 
-bindsym $mod+Shift+3      move container to workspace  3: Terminal
-bindsym $mod+Shift+F3     move container to workspace 13: Terminal
+bindsym $mod+Shift+2      move container to workspace  2: Terminal
+bindsym $mod+Shift+F2     move container to workspace 12: Terminal
 
-bindsym $mod+Shift+4      move container to workspace  4: Editor
-bindsym $mod+Shift+F4     move container to workspace 14: Editor
+bindsym $mod+Shift+3      move container to workspace  3: Editor
+bindsym $mod+Shift+F3     move container to workspace 13: Editor
 
-bindsym $mod+Shift+5      move container to workspace  5: DB
-bindsym $mod+Shift+6      move container to workspace  6: Drawing
-bindsym $mod+Shift+7      move container to workspace  7: Project A
-bindsym $mod+Shift+8      move container to workspace  8: Project B
-bindsym $mod+Shift+9      move container to workspace  9: Chat
+bindsym $mod+Shift+4      move container to workspace  4: DB
+bindsym $mod+Shift+5      move container to workspace  5: Drawing
+bindsym $mod+Shift+6      move container to workspace  6: Project A
+bindsym $mod+Shift+7      move container to workspace  7: Project B
+bindsym $mod+Shift+8      move container to workspace  8: Chat
+bindsym $mod+Shift+9      move container to workspace  9: Community
 bindsym $mod+Shift+0      move container to workspace 10: Community
 
 # reload the configuration file
