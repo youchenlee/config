@@ -42,6 +42,7 @@ case "$TERM" in
 esac
 
 source ~/.git-completion.bash
+source ~/.git-prompt.sh
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
@@ -85,11 +86,15 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
 
 # some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+alias ls='ls -G'
+alias ll='ls -GalF'
+alias la='ls -GA'
+alias l='ls -GCF'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -139,7 +144,7 @@ alias zeegaree="python /opt/zeegaree/zeegaree.py"
 #source ~/bin-dev/bin-dev.bashrc
 
 function 3_grep () {
-    grep -i -B 5 -A 10 $1 ~/Dropbox/10_ORG/Notebook.org.txt
+    grep -i -B 5 -A 10 $1 ~/Dropbox/10_ORG/workflowy.org
 }
 
 function 3_tcpdump() {
@@ -155,6 +160,8 @@ todo
 
 
 ### Added by the Heroku Toolbelt
+PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
+PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 export PATH="~/.gem/ruby/1.9.1/bin/:/usr/local/heroku/bin:$PATH"
 export PATH="~/bin:~/config/bin/:$PATH:~/android-studio/bin/"
 #PATH=$HOME/bin:/home/y/bin:/opt/local/bin:/usr/local/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/sbin:/usr/X11R6/bin:/opt/local/sbin:/usr/texbin; export PATH
@@ -166,3 +173,58 @@ export LC_MESSAGES=en_US.UTF-8
 
 
 source ~/.bashrc.gopath
+source ~/.bashrc.alias
+
+# FIXME
+export HOMEBREW_GITHUB_API_TOKEN=AAAA
+
+#hosts=$(echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | \grep -v "\[" | sort`;)
+
+_ssh() 
+{
+    local cur prev opts
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    hosts=$(cat ~/.ssh/config  | \grep '^Host ' | cut -d' ' -f2)
+    COMPREPLY=( $(compgen -W "${hosts}" -f ${cur}) )
+}
+complete -F _ssh ssh
+complete -F _ssh scp
+complete -F _ssh mosh
+
+# For mac homebrew, use gnu binary first
+PATH="~/.composer/vendor/bin:/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+
+
+export DOCKER_CERT_PATH=/Users/copyleft/.boot2docker/certs/boot2docker-vm
+export DOCKER_TLS_VERIFY=1
+export DOCKER_HOST=tcp://192.168.59.103:2376
+export PATH="$PATH:$HOME/.composer/vendor/bin"
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+
+alias find="gfind"
+alias tee="gtee"
+alias uniq="guniq"
+alias grep="ggrep --color=auto"
+alias cp="gcp"
+alias rm="grm"
+alias sed="gsed"
+alias ls="gls --color=auto"
+
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
+export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
+
+# FIXME
+export EMAIL=""
+export NAME="Youchen Lee"
+export SMTPSERVER="smtp.gmail.com"
+# FIXME
+export SLACK_TOKEN=""
+export SLACK_CHANNEL="unisharp-internal"
+
+alias slack="slackcli -g unisharp-internal -u isac1 -c"
+alias slackcat="slackcat -g unisharp-internal"
