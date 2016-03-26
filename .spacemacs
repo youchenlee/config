@@ -247,6 +247,8 @@ values."
 It is called immediately after `dotspacemacs/init'.  You are free to put almost
 any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
+  ;; 2 spaces js indentation
+  (setq js2-basic-offset 2)
   )
 
 (defun dotspacemacs/user-config ()
@@ -262,8 +264,6 @@ layers configuration. You are free to put any user code."
   (setq git-gutter+-d-sign "-")
   (setq paradox-github-token "e105332bdf7fa1f297557c3818671c0bd83c7358")
   (setq eldoc-documentation-function nil)
-  ;; 2 spaces js indentation
-  (setq js-indent-level 2)
 
   ;; Get email, and store in nnml
   (setq gnus-secondary-select-methods
