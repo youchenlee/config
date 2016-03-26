@@ -1,0 +1,6 @@
+#!/bin/sh
+
+ssh jenkins sudo tail -f /var/log/apache2/access.log \
+  | ack --flush --passthru --color --color-match=green "^.* 200 .*" \
+  | ack --flush --passthru --color --color-match=yellow "^.* 302 .*" \
+  | ack --flush --passthru --color --color-match=red "^.* 404 .*"
