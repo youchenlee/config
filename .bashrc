@@ -59,8 +59,19 @@ if [ -n "$force_color_prompt" ]; then
 	    color_prompt=
     fi
 fi
+
+function gettodo() {
+   temp_out=`devtodo2`
+   if [ -n "$temp_out" ]; then
+       echo "-----------------------------------------"
+       echo $temp_out
+       echo "-----------------------------------------"
+   fi
+}
+
 if [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \[\033[01;36m\]|$(__git_ps1 " (%s)")\[\033[00m\]\$ '
+    PS1="\$(gettodo)\n"$PS1
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -154,29 +165,20 @@ function 3_tcpdump() {
 }
 
 #linuxlogo
-cat ~/.motdnotes
-todo
+#cat ~/.motdnotes
 
 
 
-### Added by the Heroku Toolbelt
-PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
-PATH="/usr/local/bin:/usr/local/sbin:$PATH"
-export PATH="~/.gem/ruby/1.9.1/bin/:/usr/local/heroku/bin:$PATH"
-export PATH="~/bin:~/config/bin/:$PATH:~/android-studio/bin/"
-#PATH=$HOME/bin:/home/y/bin:/opt/local/bin:/usr/local/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/sbin:/usr/X11R6/bin:/opt/local/sbin:/usr/texbin; export PATH
-#export PATH
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export LC_MESSAGES=en_US.UTF-8
 
 
-source ~/.bashrc.gopath
+#source ~/.bashrc.gopath
 source ~/.bashrc.alias
 
-# FIXME
-export HOMEBREW_GITHUB_API_TOKEN=AAAA
+export HOMEBREW_GITHUB_API_TOKEN=
 
 #hosts=$(echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | \grep -v "\[" | sort`;)
 
@@ -193,17 +195,7 @@ complete -F _ssh ssh
 complete -F _ssh scp
 complete -F _ssh mosh
 
-# For mac homebrew, use gnu binary first
-PATH="~/.composer/vendor/bin:/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 
-
-export DOCKER_CERT_PATH=/Users/copyleft/.boot2docker/certs/boot2docker-vm
-export DOCKER_TLS_VERIFY=1
-export DOCKER_HOST=tcp://192.168.59.103:2376
-export PATH="$PATH:$HOME/.composer/vendor/bin"
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
 alias find="gfind"
 alias tee="gtee"
@@ -214,17 +206,20 @@ alias rm="grm"
 alias sed="gsed"
 alias ls="gls --color=auto"
 
-export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
 export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
 
-# FIXME
-export EMAIL=""
-export NAME="Youchen Lee"
-export SMTPSERVER="smtp.gmail.com"
-# FIXME
-export SLACK_TOKEN=""
-export SLACK_CHANNEL="unisharp-internal"
 
-alias slack="slackcli -g unisharp-internal -u isac1 -c"
-alias slackcat="slackcat -g unisharp-internal"
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+
+
+
+# added by travis gem
+[ -f /Users/copyleft/.travis/travis.sh ] && source /Users/copyleft/.travis/travis.sh
+
+
+# todo
+alias todo="devtodo2"
+#[ -z "$PS1" ] && return
+
+#source ~/.bashrc.overwrite

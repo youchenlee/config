@@ -18,6 +18,10 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     yaml
+     haskell
+     html
+     python
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -49,7 +53,10 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(
+     vue-mode
+     jade-mode
+   )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -252,6 +259,33 @@ in `dotspacemacs/user-config'."
   )
 
 (defun dotspacemacs/user-config ()
+(defun gtags-root-dir ()
+  "Returns GTAGS root directory or nil if doesn't exist."
+  (with-temp-buffer
+    (if (zerop (call-process "global" nil t nil "-pr"))
+        (buffer-substring (point-min) (1- (point-max)))
+      nil)))
+
+
+(defun gtags-update-single(filename)
+  "Update Gtags database for changes in a single file"
+  (interactive)
+  (start-process "update-gtags" "update-gtags" "bash" "-c" (concat "cd " (gtags-root-dir) " ; gtags --single-update " filename )))
+
+(defun gtags-update-current-file()
+  (interactive)
+  (defvar filename)
+  (setq filename (replace-regexp-in-string (gtags-root-dir) "." (buffer-file-name (current-buffer))))
+  (gtags-update-single filename)
+  (message "Gtags updated for %s" filename))
+
+(defun gtags-update-hook()
+  "Update GTAGS file incrementally upon saving a file"
+  (when (boundp 'ggtags-mode)
+    (when (gtags-root-dir)
+      (gtags-update-current-file))))
+
+  
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
@@ -262,8 +296,11 @@ layers configuration. You are free to put any user code."
   (setq git-gutter+-modified-sign "=") ;; two space
   (setq git-gutter+-added-sign "+")    ;; multiple character is OK
   (setq git-gutter+-d-sign "-")
-  (setq paradox-github-token "e105332bdf7fa1f297557c3818671c0bd83c7358")
+  (setq paradox-github-token "XXX")
   (setq eldoc-documentation-function nil)
+  (setq helm-gtags-auto-update nil)
+  (setq helm-gtags-update-tags nil)
+  (setq ggtags-update-on-save nil)
 
   ;; Get email, and store in nnml
   (setq gnus-secondary-select-methods
@@ -294,8 +331,23 @@ layers configuration. You are free to put any user code."
   (setq nnml-directory "~/gmail")
   (setq message-directory "~/gmail")
 
+  (add-hook 'after-save-hook 'gtags-update-hook)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ggtags-update-on-save nil)
+ '(helm-gtags-auto-update nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
