@@ -3,6 +3,27 @@
 ;; It must be stored in your home directory.
 
 
+;; source: http://blog.binchen.org/posts/easy-indentation-setup-in-emacs-for-web-development.html
+(defun my-setup-indent (n)
+  ;; java/c/c++
+  ;;(setq c-basic-offset n)
+  ;; web development
+  (setq coffee-tab-width n) ; coffeescript
+  (setq javascript-indent-level n) ; javascript-mode
+  (setq js-indent-level n) ; js-mode
+  (setq js2-basic-offset n) ; js2-mode, in latest js2-mode, it's alias of js-indent-level
+  (setq web-mode-markup-indent-offset n) ; web-mode, html tag in html file
+  (setq web-mode-css-indent-offset n) ; web-mode, css in html file
+  (setq web-mode-code-indent-offset n) ; web-mode, js code in html file
+  (setq web-mode-attr-indent-offset n) ; web-mode, attributes
+  (setq web-mode-style-padding 0)
+  (setq web-mode-script-padding 0)
+  (setq web-mode-block-padding 0)
+  (setq web-mode-comment-style n)
+  (setq css-indent-offset n) ; css-mode
+  )
+
+
 (defun xah-run-current-file ()
   "Execute the current file.
 For example, if the current buffer is x.py, then it'll call 「python x.py」 in a shell. Output is printed to message buffer.
@@ -62,7 +83,7 @@ Version 2017-02-10"
 (global-set-key (kbd "<f8>") 'xah-run-current-file)
 
 
-(setq markdown-open-command "~/config/bin/mark")
+(setq markdown-open-command "/usr/local/bin/mark")
 
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
@@ -80,6 +101,7 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     sql
      yaml
      haskell
      html
@@ -89,7 +111,7 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ;auto-completion
+     auto-completion
      better-defaults
      emacs-lisp
      git
@@ -318,47 +340,58 @@ any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
   ;; 2 spaces js indentation
   (setq js2-basic-offset 2)
+  (my-setup-indent 2) ; indent 2 spaces width
   )
 
 (defun dotspacemacs/user-config ()
-(defun gtags-root-dir ()
-  "Returns GTAGS root directory or nil if doesn't exist."
-  (with-temp-buffer
-    (if (zerop (call-process "global" nil t nil "-pr"))
-        (buffer-substring (point-min) (1- (point-max)))
-      nil)))
+  (defun gtags-root-dir ()
+    "Returns GTAGS root directory or nil if doesn't exist."
+    (with-temp-buffer
+      (if (zerop (call-process "global" nil t nil "-pr"))
+          (buffer-substring (point-min) (1- (point-max)))
+        nil)))
 
 
-(defun gtags-update-single(filename)
-  "Update Gtags database for changes in a single file"
-  (interactive)
-  (start-process "update-gtags" "update-gtags" "bash" "-c" (concat "cd " (gtags-root-dir) " ; gtags --single-update " filename )))
+  (defun gtags-update-single(filename)
+    "Update Gtags database for changes in a single file"
+    (interactive)
+    (start-process "update-gtags" "update-gtags" "bash" "-c" (concat "cd " (gtags-root-dir) " ; gtags --single-update " filename )))
 
-(defun gtags-update-current-file()
-  (interactive)
-  (defvar filename)
-  (setq filename (replace-regexp-in-string (gtags-root-dir) "." (buffer-file-name (current-buffer))))
-  (gtags-update-single filename)
-  (message "Gtags updated for %s" filename))
+  (defun gtags-update-current-file()
+    (interactive)
+    (defvar filename)
+    (setq filename (replace-regexp-in-string (gtags-root-dir) "." (buffer-file-name (current-buffer))))
+    (gtags-update-single filename)
+    (message "Gtags updated for %s" filename))
 
-(defun gtags-update-hook()
-  "Update GTAGS file incrementally upon saving a file"
-  (when (boundp 'ggtags-mode)
-    (when (gtags-root-dir)
-      (gtags-update-current-file))))
+  (defun gtags-update-hook()
+    "Update GTAGS file incrementally upon saving a file"
+    (when (boundp 'ggtags-mode)
+      (when (gtags-root-dir)
+        (gtags-update-current-file))))
 
-  
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
   (projectile-global-mode)
+
+  ;; flycheck
   (setq flycheck-phpcs-standard "PSR2")
+  (setq flycheck-eslintrc "~/.eslintrc")
+  (flycheck-add-mode 'javascript-eslint 'js2-mode)
+  (flycheck-add-mode 'javascript-eslint 'js-mode)
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
+
+  (setq-default flycheck-disabled-checkers
+                (append flycheck-disabled-checkers
+                        '(javascript-jshint)))
+
   '(version-control :variables
                     version-control-diff-tool 'git-gutter+)
   (setq git-gutter+-modified-sign "=") ;; two space
   (setq git-gutter+-added-sign "+")    ;; multiple character is OK
   (setq git-gutter+-d-sign "-")
-  (setq paradox-github-token "XXX")
+  (setq paradox-github-token "e105332bdf7fa1f297557c3818671c0bd83c7358")
   (setq eldoc-documentation-function nil)
   (setq helm-gtags-auto-update nil)
   (setq helm-gtags-update-tags nil)
@@ -400,6 +433,12 @@ layers configuration. You are free to put any user code."
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
 
+(setq org-todo-keywords
+  '((sequence "TODO" "DOING" "|" "DONE" "DELEGATED")))
+
+(add-to-list 'auto-mode-alist '("\\.org.md\\'" . org-mode))
+(add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -407,7 +446,10 @@ layers configuration. You are free to put any user code."
  ;; If there is more than one, they won't work right.
  '(ggtags-update-on-save nil)
  '(helm-gtags-auto-update nil t)
- '(markdown-command "/usr/local/bin/mark"))
+ '(markdown-command "/usr/local/bin/mark")
+ '(package-selected-packages
+   (quote
+    (ssass-mode vue-html-mode sql-indent helm-company helm-c-yasnippet company-web web-completion-data company-tern dash-functional tern company-statistics company-cabal company-anaconda auto-yasnippet ac-ispell auto-complete eslint-fix yapfify yaml-mode ws-butler window-numbering which-key web-mode web-beautify vue-mode volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tide tagedit spacemacs-theme spaceline smeargle slim-mode scss-mode sass-mode restclient restart-emacs rainbow-delimiters quelpa pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements phpunit phpcbf php-extras php-auto-yasnippets persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file ob-http neotree mwim move-text markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc jade-mode intero info+ indent-guide ido-vertical-mode ibuffer-projectile hy-mode hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-hoogle helm-gtags helm-gitignore helm-flx helm-descbinds helm-css-scss helm-ag haskell-snippets google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md ggtags flycheck-pos-tip flycheck-haskell flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu emmet-mode elisp-slime-nav dumb-jump drupal-mode diff-hl define-word cython-mode company-ghci company-ghc column-enforce-mode coffee-mode cmm-mode clean-aindent-mode auto-highlight-symbol auto-compile anaconda-mode aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
