@@ -1,0 +1,2 @@
+#!/bin/bash
+sudo tcpdump -i lo0 -s 0 -l -w - dst port 3306 | strings 
