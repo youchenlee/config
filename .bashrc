@@ -41,8 +41,8 @@ case "$TERM" in
     xterm-color|xterm-256color) color_prompt=yes;;
 esac
 
-source ~/.git-completion.bash
-source ~/.git-prompt.sh
+source ~/config/.git-completion.bash
+source ~/config/.git-prompt.sh
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
@@ -71,7 +71,7 @@ function gettodo() {
 
 if [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \[\033[01;36m\]|$(__git_ps1 " (%s)")\[\033[00m\]\$ '
-    PS1="\$(gettodo)\n"$PS1
+    #PS1="\$(gettodo)\n"$PS1
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
