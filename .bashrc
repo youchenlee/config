@@ -130,8 +130,9 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-export EDITOR="emacsclient"
+#export EDITOR="emacsclient"
 alias emacs="emacs -nw"
+export EDITOR="emacs"
 export CLUTTER_IM_MODULE="ibus"
 export GTK_IM_MODULE="ibus"
 export QT4_IM_MODULE="ibus"
@@ -223,3 +224,7 @@ alias todo="devtodo2"
 #[ -z "$PS1" ] && return
 
 #source ~/.bashrc.overwrite
+
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+. $(brew --prefix)/etc/bash_completion
+fi
