@@ -131,7 +131,7 @@ if ! shopt -oq posix; then
   fi
 fi
 #export EDITOR="emacsclient"
-alias emacs="emacs -nw"
+#alias emacs="emacs -nw"
 export EDITOR="emacs"
 export CLUTTER_IM_MODULE="ibus"
 export GTK_IM_MODULE="ibus"
@@ -177,7 +177,7 @@ export LC_MESSAGES=en_US.UTF-8
 
 
 #source ~/.bashrc.gopath
-source ~/.bashrc.alias
+#source ~/.bashrc.alias
 
 export HOMEBREW_GITHUB_API_TOKEN=
 
@@ -197,15 +197,8 @@ complete -F _ssh scp
 complete -F _ssh mosh
 
 
+source ~/config/.alias
 
-alias find="gfind"
-alias tee="gtee"
-alias uniq="guniq"
-alias grep="ggrep --color=auto"
-alias cp="gcp"
-alias rm="grm"
-alias sed="gsed"
-alias ls="gls --color=auto"
 
 export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
 

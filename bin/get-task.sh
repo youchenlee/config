@@ -1,0 +1,1 @@
+sqlite3 ~/Library/Containers/net.shinyfrog.bear/Data/Documents/Application\ Data/database.sqlite 'select ZTEXT from ZSFNOTE where ZUNIQUEIDENTIFIER="26D9F600-4188-4969-A199-F4AE7E7A4F1B-13664-0001A51BF95B9D7A";' | \grep '\- \[ \]' | head -10 | sed 's/- \[ \] //'
