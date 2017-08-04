@@ -124,15 +124,19 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>433 363 620 392 0 0 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>162 265 918 495 0 0 1440 877 </string>
+	<string>162 305 796 473 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>46 263 890 602 0 0 1440 877 </string>
+	<string>46 275 890 602 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>112 270 890 602 0 0 1440 877 </string>
+	<string>377 191 890 602 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>46 22 1385 855 0 0 1440 877 </string>
+	<string>274 275 890 602 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
-	<string>218 24 890 602 0 0 1440 877 </string>
+	<string>97 183 1187 694 0 0 1440 877 </string>
+	<key>NSWindow Frame iTerm Window 4</key>
+	<string>239 1 890 602 0 0 1440 877 </string>
+	<key>NSWindow Frame iTerm Window 5</key>
+	<string>46 0 1394 877 0 0 1440 877 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -865,8 +869,22 @@
 	<true/>
 	<key>NoSyncInstallationId</key>
 	<string>142CE6D7-6CA5-4851-9360-FE884A1A2985</string>
+	<key>NoSyncLastTipTime</key>
+	<real>523103486.33560002</real>
+	<key>NoSyncPermissionToShowTip</key>
+	<true/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>522330929.29880899</real>
+	<key>NoSyncTipsToNotShow</key>
+	<array>
+		<string>000</string>
+		<string>0000</string>
+		<string>0001</string>
+		<string>0002</string>
+		<string>0003</string>
+		<string>0004</string>
+		<string>0005</string>
+	</array>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -933,7 +951,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-07-22T14:50:02Z</date>
+	<date>2017-07-30T16:11:46Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
@@ -978,6 +996,8 @@
 	<string>/-+\~_.</string>
 	<key>findIgnoreCase_iTerm</key>
 	<true/>
+	<key>findMode_iTerm</key>
+	<integer>0</integer>
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>

@@ -155,8 +155,13 @@ alias zeegaree="python /opt/zeegaree/zeegaree.py"
 
 #source ~/bin-dev/bin-dev.bashrc
 
-function 3_grep () {
-    grep -i -B 5 -A 10 $1 ~/Dropbox/10_ORG/workflowy.org
+#function 3_grep () {
+#    grep -i -B 5 -A 10 $1 ~/Dropbox/10_ORG/workflowy.org
+#}
+
+
+function 3_grep() {
+    sqlite3 ~/Library/Containers/net.shinyfrog.bear/Data/Documents/Application\ Data/database.sqlite "select ZTEXT from ZSFNOTE where ZTEXT LIKE '%$1%';" | \grep --color -i "$1" -B 5 -A 10
 }
 
 function 3_tcpdump() {

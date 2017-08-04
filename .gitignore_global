@@ -1,8 +1,9 @@
 *~
 .DS_Store
 .idea
-GPATH
-GRTAGS
-GTAGS
+/GPATH
+/GRTAGS
+/GTAGS
+/TAGS
 .isaclnext
 .todo2
