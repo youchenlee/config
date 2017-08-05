@@ -8,3 +8,8 @@ alias sed="gsed"
 alias date="gdate"
 alias stat="gstat"
 alias ls="gls --color=auto"
+alias gd="git diff"
+
+# https://coderwall.com/p/euwpig/a-better-git-log
+alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias glp="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit -p"
