@@ -4,6 +4,12 @@
 (global-set-key (kbd "C-j") 'avy-goto-word-or-subword-1)
 
 
+(global-set-key (kbd "C-?") 'help-command)
+(global-set-key (kbd "M-?") 'mark-paragraph)
+(global-set-key (kbd "C-h") 'delete-backward-char)
+(global-set-key (kbd "M-h") 'backward-kill-word)
+
+
 (when (maybe-require-package 'git-gutter+)
   (global-git-gutter+-mode +1)
   )
@@ -20,10 +26,7 @@
 (when (maybe-require-package 'js2-mode)
 
   (setq js2-strict-missing-semi-warning nil)
-)
- 
-
-
+  )
 
 
 (when (maybe-require-package 'web-mode)
@@ -35,7 +38,9 @@
   (flycheck-add-mode 'css-csslint 'web-mode)
   (flycheck-add-mode 'javascript-eslint 'web-mode)
   ;(flycheck-add-mode 'javascript-eslint 'js2-mode)
-)
+    '(progn
+      (set-face-attribute 'flycheck-error nil :foreground "pink"))
+  )
 
 
 ; gtags
@@ -50,6 +55,7 @@
               (when (derived-mode-p 'php-mode)
                 (ggtags-mode 1))))
   )
+
 
 
 

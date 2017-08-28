@@ -130,8 +130,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-#export EDITOR="emacsclient"
-#alias emacs="emacs -nw"
 export EDITOR="emacs"
 export CLUTTER_IM_MODULE="ibus"
 export GTK_IM_MODULE="ibus"
@@ -140,12 +138,6 @@ export QT_IM_MODULE="ibus"
 export XMODIFIERS=@im=ibus
 
 alias e="emacsclient"
-alias et="emacsclient -nw /home/copyleft/Dropbox/10_ORG/TODO.org.txt"
-alias en="emacsclient -nw /home/copyleft/Dropbox/10_ORG/Notebook.org.txt"
-alias ej="emacsclient -nw /home/copyleft/Dropbox/10_ORG/WorkJournal.org.txt"
-alias ef="emacsclient -nw /home/copyleft/Dropbox/10_ORG/Contact.org.txt"
-alias ec="emacsclient -nw /home/copyleft/Dropbox/10_ORG/Contact.org.txt"
-alias ed="emacsclient -nw /home/copyleft/Dropbox/10_ORG/LifeDiary.org.txt"
 alias naverline="env LC_ALL=zh_TW.UTF-8 WINPREFIX=~/LINE/ wine ~/LINE/Line.exe"
 alias evernote=" wine ~/.wine/drive_c/Program\ Files\ \(x86\)/Evernote/Evernote/Evernote.exe"
 alias kindle="wine /home/copyleft/.wine/drive_c/Program\ Files\ \(x86\)/Amazon/Kindle/Kindle.exe"
