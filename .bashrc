@@ -192,6 +192,10 @@ _ssh()
 complete -F _ssh ssh
 complete -F _ssh scp
 complete -F _ssh mosh
+complete -F _ssh pssh
+complete -F _ssh pscp
+complete -F _ssh pslurp
+complete -F _ssh pnuke
 
 
 source ~/config/.alias
