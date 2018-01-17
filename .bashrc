@@ -2,6 +2,12 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+source ~/.fzf.bash
+
+BASE16_SHELL=$HOME/.config/base16-shell/
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
+
 # If not running interactively, don't do anything
 export TERM="xterm-256color"
 case $- in
@@ -180,7 +186,7 @@ export HOMEBREW_GITHUB_API_TOKEN=
 
 #hosts=$(echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | \grep -v "\[" | sort`;)
 
-_ssh() 
+_ssh()
 {
     local cur prev opts
     COMPREPLY=()

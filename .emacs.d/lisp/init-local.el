@@ -1,5 +1,3 @@
-(setq mac-option-modifier 'meta)
-(setq mac-command-modifier 'super)
 (global-unset-key (kbd "C-j"))
 (global-set-key (kbd "C-j") 'avy-goto-word-or-subword-1)
 
@@ -19,7 +17,14 @@
   )
 
 (when (maybe-require-package 'emmet-mode)
-)
+  )
+
+(when (maybe-require-package 'yafolding)
+  (global-set-key (kbd "<C-M-return>") 'yafolding-toggle-all)
+  (global-set-key (kbd "<C-S-return>") 'yafolding-hide-parent-element)
+  (global-set-key (kbd "<C-return>") 'yafolding-toggle-element)
+  )
+
 
 
 
@@ -37,13 +42,13 @@
 (with-eval-after-load 'flycheck
   (flycheck-add-mode 'css-csslint 'web-mode)
   (flycheck-add-mode 'javascript-eslint 'web-mode)
-  ;(flycheck-add-mode 'javascript-eslint 'js2-mode)
-    '(progn
-      (set-face-attribute 'flycheck-error nil :foreground "pink"))
+  ;;(flycheck-add-mode 'javascript-eslint 'js2-mode)
+  '(progn
+     (set-face-attribute 'flycheck-error nil :foreground "pink"))
   )
 
 
-; gtags
+                                        ; gtags
 (when (maybe-require-package 'ggtags)
   (add-hook 'c-mode-common-hook
             (lambda ()
@@ -58,7 +63,7 @@
 
 
 
-; yap
+;; yap
 (require 'yasnippet)
 (yas-global-mode 1)
 
@@ -101,7 +106,7 @@
 (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
 
 
-                                        ; backup files
+;; backup files
 (setq backup-directory-alist `(("." . "/tmp/emacs-backup")))
 (setq backup-by-copying t)
 (setq delete-old-versions t
@@ -110,9 +115,10 @@
       version-control t)
 
 (when (eq system-type 'darwin)  ; mac specific bindings
-  (setq mac-right-command-modifier 'control ;
-
-        ))
+  (setq mac-right-command-modifier 'control)
+  (setq mac-option-modifier 'meta)
+  (setq mac-command-modifier 'super)
+)
 
 (defun xah-run-current-file ()
   "Execute the current file.
@@ -179,8 +185,8 @@ Version 2017-02-10"
 (setq org-agenda-start-on-weekday nil)
 
 (setq org-directory "~/Dropbox/Apps/MobileOrg.bak2")
-;(setq org-mobile-directory "~/Dropbox/Apps/MobileOrg.bak2")
-;(setq org-mobile-inbox-for-pull "~/Dropbox/Apps/MobileOrg.bak2/mobileorg.org")
+;;(setq org-mobile-directory "~/Dropbox/Apps/MobileOrg.bak2")
+;;(setq org-mobile-inbox-for-pull "~/Dropbox/Apps/MobileOrg.bak2/mobileorg.org")
 
 (setq org-default-notes-file (concat org-directory "/mobileorg.org"))
 (define-key global-map "\C-co" 'org-capture)
@@ -210,3 +216,4 @@ Version 2017-02-10"
   )
 
 (provide 'init-local)
+;;; init-local.el ends here
