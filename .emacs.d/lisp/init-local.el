@@ -259,9 +259,9 @@ Version 2017-02-10"
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; markdown
+;; ivy
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(when (maybe-require-package 'ag)
+(when (maybe-require-package 'rg)
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
   (global-set-key "\C-s" 'counsel-grep-or-swiper)
@@ -276,7 +276,7 @@ Version 2017-02-10"
   (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
   (global-set-key (kbd "C-c g") 'counsel-git)
   (global-set-key (kbd "C-c j") 'counsel-git-grep)
-  (global-set-key (kbd "C-c k") 'counsel-ag)
+  (global-set-key (kbd "C-c k") 'counsel-rg)
   (global-set-key (kbd "C-x l") 'counsel-locate)
   (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
   (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
