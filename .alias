@@ -1,3 +1,14 @@
+# common
+alias ls="gls --color=auto"
+alias gd="git diff"
+alias ec="emacsclient"
+alias e="emacsclient"
+# https://coderwall.com/p/euwpig/a-better-git-log
+alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias glp="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit -p"
+
+
+# mac only
 alias find="gfind"
 alias tee="gtee"
 alias uniq="guniq"
@@ -7,9 +18,10 @@ alias rm="grm"
 alias sed="gsed"
 alias date="gdate"
 alias stat="gstat"
-alias ls="gls --color=auto"
-alias gd="git diff"
 
-# https://coderwall.com/p/euwpig/a-better-git-log
-alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-alias glp="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit -p"
+
+# linux only
+alias naverline="env LC_ALL=zh_TW.UTF-8 WINPREFIX=~/LINE/ wine ~/LINE/Line.exe"
+alias evernote=" wine ~/.wine/drive_c/Program\ Files\ \(x86\)/Evernote/Evernote/Evernote.exe"
+alias kindle="wine /home/copyleft/.wine/drive_c/Program\ Files\ \(x86\)/Amazon/Kindle/Kindle.exe"
+alias zeegaree="python /opt/zeegaree/zeegaree.py"

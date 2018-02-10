@@ -136,20 +136,18 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-export EDITOR="emacs"
+export EDITOR="emacsclient"
+
+# linux only
 export CLUTTER_IM_MODULE="ibus"
 export GTK_IM_MODULE="ibus"
 export QT4_IM_MODULE="ibus"
 export QT_IM_MODULE="ibus"
 export XMODIFIERS=@im=ibus
-
-alias e="emacsclient"
-alias naverline="env LC_ALL=zh_TW.UTF-8 WINPREFIX=~/LINE/ wine ~/LINE/Line.exe"
-alias evernote=" wine ~/.wine/drive_c/Program\ Files\ \(x86\)/Evernote/Evernote/Evernote.exe"
-alias kindle="wine /home/copyleft/.wine/drive_c/Program\ Files\ \(x86\)/Amazon/Kindle/Kindle.exe"
-alias zeegaree="python /opt/zeegaree/zeegaree.py"
-
-
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+export LC_MESSAGES=en_US.UTF-8
 
 #source ~/bin-dev/bin-dev.bashrc
 
@@ -170,13 +168,6 @@ function 3_tcpdump() {
 
 #linuxlogo
 #cat ~/.motdnotes
-
-
-
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-export LC_CTYPE=en_US.UTF-8
-export LC_MESSAGES=en_US.UTF-8
 
 
 #source ~/.bashrc.gopath
