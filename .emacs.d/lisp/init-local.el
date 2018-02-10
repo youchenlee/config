@@ -1,24 +1,52 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; avy-goto-word
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (global-unset-key (kbd "C-j"))
-(global-set-key (kbd "C-j") 'avy-goto-word-or-subword-1)
+(when (maybe-require-package 'avy)
+  (global-set-key (kbd "C-j") 'avy-goto-word-or-subword-1)
+  )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; grep
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq grep-command "grep --color -nH -e -i ") ; default "grep --color -nH -e "
+(setq counsel-grep-base-command "rg -i -M 120 --no-heading --line-number --color never %s %s") ; default: "grep -E -n -e %s %s "
 
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; Mac
+;;;;;;;;;;;;;;;;;;;;;;;;
+(when (eq system-type 'darwin)  ; mac specific bindings
+  (setq mac-right-command-modifier 'control)
+  (setq mac-option-modifier 'meta)
+  (setq mac-command-modifier 'super)
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; Common key binding
+;;;;;;;;;;;;;;;;;;;;;;;;
 (global-set-key (kbd "C-?") 'help-command)
 (global-set-key (kbd "M-?") 'mark-paragraph)
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "M-h") 'backward-kill-word)
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Gutter (fridge)
+;;;;;;;;;;;;;;;;;;;;;;;;
 (when (maybe-require-package 'git-gutter+)
   (global-git-gutter+-mode +1)
   )
 
-(when (maybe-require-package 'avy)
 
-  )
-
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Emmet
+;;;;;;;;;;;;;;;;;;;;;;;;
 (when (maybe-require-package 'emmet-mode)
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; Folding
+;;;;;;;;;;;;;;;;;;;;;;;;
 (when (maybe-require-package 'yafolding)
   (global-set-key (kbd "<C-M-return>") 'yafolding-toggle-all)
   (global-set-key (kbd "<C-S-return>") 'yafolding-hide-parent-element)
@@ -26,29 +54,26 @@
   )
 
 
-
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; JS2
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (when (maybe-require-package 'js2-mode)
-
   (setq js2-strict-missing-semi-warning nil)
   )
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; CSS
+;;;;;;;;;;;;;;;;;;;;;;;;;
 (when (maybe-require-package 'web-mode)
   (setq web-mode-enable-css-colorization t)
   )
 
 
-(with-eval-after-load 'flycheck
-  (flycheck-add-mode 'css-csslint 'web-mode)
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
-  ;;(flycheck-add-mode 'javascript-eslint 'js2-mode)
-  '(progn
-     (set-face-attribute 'flycheck-error nil :foreground "pink"))
-  )
 
-
-                                        ; gtags
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; gtags
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (when (maybe-require-package 'ggtags)
   (add-hook 'c-mode-common-hook
             (lambda ()
@@ -62,14 +87,29 @@
   )
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; php
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(add-hook 'php-mode-hook (lambda ()
+                           (flycheck-select-checker 'php)
+                           (c-set-style "psr2") ; Works
+                           ))
 
-;; yap
+
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;; yas
+;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'yasnippet)
 (yas-global-mode 1)
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; Vue
+;;;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'auto-mode-alist '("\\.vue?\\'" . web-mode))
 
+;;;;;;;;;;;;;;;;;;;;;;;
+;; Web Indent
+;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-setup-indent (n)
   ;; java/c/c++
   ;;(setq c-basic-offset n)
@@ -92,8 +132,11 @@
 (my-setup-indent 2)
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; eslint
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; http://codewinds.com/blog/2015-04-02-emacs-flycheck-eslint-jsx.html#summary
+;; http://codewinds.com/blog/2015-04-02-emacs-flycheck-eslint-jsx.html#summary
 (defun my/use-eslint-from-node-modules ()
   (let* ((root (locate-dominating-file
                 (or (buffer-file-name) default-directory)
@@ -105,8 +148,17 @@
       (setq-local flycheck-javascript-eslint-executable eslint))))
 (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
 
+(with-eval-after-load 'flycheck
+  (flycheck-add-mode 'css-csslint 'web-mode)
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  ;;(flycheck-add-mode 'javascript-eslint 'js2-mode)
+  '(progn
+     (set-face-attribute 'flycheck-error nil :foreground "pink"))
+  )
 
+;;;;;;;;;;;;;;;;;;;;;;;
 ;; backup files
+;;;;;;;;;;;;;;;;;;;;;;;
 (setq backup-directory-alist `(("." . "/tmp/emacs-backup")))
 (setq backup-by-copying t)
 (setq delete-old-versions t
@@ -114,12 +166,10 @@
       kept-old-versions 2
       version-control t)
 
-(when (eq system-type 'darwin)  ; mac specific bindings
-  (setq mac-right-command-modifier 'control)
-  (setq mac-option-modifier 'meta)
-  (setq mac-command-modifier 'super)
-)
 
+;;;;;;;;;;;;;;;;;;;;;
+;; Run current file
+;;;;;;;;;;;;;;;;;;;;;
 (defun xah-run-current-file ()
   "Execute the current file.
 For example, if the current buffer is x.py, then it'll call 「python x.py」 in a shell. Output is printed to message buffer.
@@ -178,6 +228,9 @@ Version 2017-02-10"
 
 (global-set-key (kbd "<f8>") 'xah-run-current-file)
 
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; org
+;;;;;;;;;;;;;;;;;;;;;;;;
 (setq org-enforce-todo-dependencies t)
 (setq org-agenda-include-diary t)
 (setq org-agenda-start-day "-1d")
@@ -191,13 +244,27 @@ Version 2017-02-10"
 (setq org-default-notes-file (concat org-directory "/mobileorg.org"))
 (define-key global-map "\C-co" 'org-capture)
 
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (local-set-key "\C-j" 'avy-goto-word-or-subword-1)
+            )
+          )
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; markdown
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq markdown-open-command "/Users/copyleft/config/bin/mark")
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; markdown
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (when (maybe-require-package 'ag)
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
-  (global-set-key "\C-s" 'swiper)
+  (global-set-key "\C-s" 'counsel-grep-or-swiper)
   (global-set-key (kbd "C-c C-r") 'ivy-resume)
   (global-set-key (kbd "<f6>") 'ivy-resume)
   (global-set-key (kbd "M-x") 'counsel-M-x)
@@ -213,6 +280,13 @@ Version 2017-02-10"
   (global-set-key (kbd "C-x l") 'counsel-locate)
   (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
   (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;
+;; ripgrep
+;;;;;;;;;;;;;;;;;;;;;;
+(when (maybe-require-package 'rg)
+  (rg-enable-default-bindings "\C-c s")
   )
 
 (provide 'init-local)
