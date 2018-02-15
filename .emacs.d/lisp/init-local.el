@@ -237,12 +237,12 @@ Version 2017-02-10"
 (setq org-agenda-span 30)
 (setq org-agenda-start-on-weekday nil)
 
-(setq org-directory "~/Dropbox/Apps/MobileOrg.bak2")
+;;(setq org-directory "~/Dropbox/Apps/MobileOrg.bak2")
 ;;(setq org-mobile-directory "~/Dropbox/Apps/MobileOrg.bak2")
 ;;(setq org-mobile-inbox-for-pull "~/Dropbox/Apps/MobileOrg.bak2/mobileorg.org")
 
-(setq org-default-notes-file (concat org-directory "/mobileorg.org"))
-(define-key global-map "\C-co" 'org-capture)
+;;(setq org-default-notes-file (concat org-directory "/mobileorg.org"))
+;;(define-key global-map "\C-co" 'org-capture)
 
 
 (add-hook 'org-mode-hook
@@ -251,6 +251,52 @@ Version 2017-02-10"
             )
           )
 
+;; https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html
+(setq org-capture-templates '(("t" "Todo [inbox]" entry
+                               (file+headline "~/Dropbox/org/inbox.org" "Tasks")
+                               "* TODO %i%?")
+                              ("T" "Tickler" entry
+                               (file+headline "~/Dropbox/org/tickler.org" "Tickler")
+                               "* %i%? \n %U")))
+
+(setq org-refile-targets '(("~/Dropbox/org/gtd.org" :maxlevel . 3)
+                           ("~/Dropbox/org/someday.org" :level . 1)
+                           ("~/Dropbox/org/tickler.org" :maxlevel . 2)))
+
+(setq org-agenda-custom-commands
+      '(("o" "At the office" tags-todo "@coding"
+         ((org-agenda-overriding-header "Coding")
+          (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))))
+
+(setq org-agenda-custom-commands
+      '(("g" . "GTD contexts")
+        ("go" "Office" search "@office")
+        ("gc" "Coding" search "@coding")
+        ("gp" "Plan" search "@plan")
+        ("G" "GTD Block Agenda"
+         ((search "@office")
+          (search "@coding")
+          (search "@plan"))
+         nil                      ;; i.e., no local settings
+         ("~/next-actions.html")) ;; exports block to this file with C-c a e
+        ;; ..other commands here
+        ))
+
+(defun my-org-agenda-skip-all-siblings-but-first ()
+  "Skip all but the first non-done entry."
+  (let (should-skip-entry)
+    (unless (org-current-is-todo)
+      (setq should-skip-entry t))
+    (save-excursion
+      (while (and (not should-skip-entry) (org-goto-sibling t))
+        (when (org-current-is-todo)
+          (setq should-skip-entry t))))
+    (when should-skip-entry
+      (or (outline-next-heading)
+          (goto-char (point-max))))))
+
+(defun org-current-is-todo ()
+  (string= "TODO" (org-get-todo-state)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; markdown
