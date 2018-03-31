@@ -298,6 +298,14 @@ Version 2017-02-10"
 (defun org-current-is-todo ()
   (string= "TODO" (org-get-todo-state)))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; org-mode clocktable & clocking
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq org-clock-persist 'history)
+(org-clock-persistence-insinuate)
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; markdown
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -334,6 +342,12 @@ Version 2017-02-10"
 (when (maybe-require-package 'rg)
   (rg-enable-default-bindings "\C-c s")
   )
+
+(add-to-list 'load-path "~/.emacs.d/site-lisp/")
+
+(load-library "org-opml")
+(load-library "ox-opml")
+(load-library "org-kanban")
 
 (provide 'init-local)
 ;;; init-local.el ends here

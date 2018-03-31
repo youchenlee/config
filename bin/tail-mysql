@@ -1,0 +1,1 @@
+docker exec -it mydb tail -f /tmp/mysql.log
