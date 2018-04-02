@@ -201,6 +201,7 @@ Version 2017-02-10"
            ("tex" . "pdflatex")
            ("latex" . "pdflatex")
            ("java" . "javac")
+           ("rs" . "cargo script")
            ;; ("pov" . "/usr/local/bin/povray +R2 +A0.1 +J1.2 +Am2 +Q9 +H480 +W640")
            ))
         -fname
