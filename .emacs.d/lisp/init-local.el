@@ -127,6 +127,7 @@
   (setq web-mode-block-padding n)
   (setq web-mode-comment-style n)
   (setq css-indent-offset n) ; css-mode
+  (setq typescript-indent-level 2) ; typescript-mode
   )
 
 (my-setup-indent 2)
@@ -187,6 +188,8 @@ Version 2017-02-10"
          `(
            ("php" . "php")
            ("pl" . "perl")
+           ("pl6" . "perl6")
+           ("p6" . "perl6")
            ("py" . "python")
            ("py3" . ,(if (string-equal system-type "windows-nt") "c:/Python32/python.exe" "python3"))
            ("rb" . "ruby")
@@ -320,6 +323,7 @@ Version 2017-02-10"
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
   (global-set-key "\C-s" 'counsel-grep-or-swiper)
+  ;;(global-set-key "\C-s" 'counsel-grep)
   (global-set-key (kbd "C-c C-r") 'ivy-resume)
   (global-set-key (kbd "<f6>") 'ivy-resume)
   (global-set-key (kbd "M-x") 'counsel-M-x)
@@ -343,6 +347,15 @@ Version 2017-02-10"
 (when (maybe-require-package 'rg)
   (rg-enable-default-bindings "\C-c s")
   )
+
+
+;;;;;;;;;;;;;;;;;;;;;;
+;; rust
+;;;;;;;;;;;;;;;;;;;;;;
+(when (maybe-require-package 'flycheck-rust)
+  (with-eval-after-load 'rust-mode
+    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
+
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/")
 

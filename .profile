@@ -7,6 +7,7 @@ PATH="$PATH:$HOME/.composer/vendor/bin"
 PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 PATH=~/Library/Android/sdk/platform-tools:$PATH
 PATH=~/gocode/bin:$PATH
+PATH=/usr/local/Cellar/rakudo-star/2018.04/share/perl6/site/bin:$PATH
 
 export PATH
 
