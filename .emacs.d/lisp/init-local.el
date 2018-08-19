@@ -1,12 +1,4 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; avy-goto-word
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(global-unset-key (kbd "C-j"))
-(when (maybe-require-package 'avy)
-  (global-set-key (kbd "C-j") 'avy-goto-word-or-subword-1)
-  )
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; grep
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq grep-command "grep --color -nH -e -i ") ; default "grep --color -nH -e "
@@ -72,6 +64,15 @@ point reaches the beginning or end of the buffer, stop there."
 ;; Emmet
 ;;;;;;;;;;;;;;;;;;;;;;;;
 (when (maybe-require-package 'emmet-mode)
+  (global-set-key (kbd "C-l") 'emmet-expand-yas)
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; avy-goto-word
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(global-unset-key (kbd "C-j"))
+(when (maybe-require-package 'avy)
+  (global-set-key (kbd "C-j") 'avy-goto-word-or-subword-1)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
@@ -153,7 +154,7 @@ point reaches the beginning or end of the buffer, stop there."
   (setq web-mode-code-indent-offset n) ; web-mode, js code in html file
   (setq web-mode-attr-indent-offset n) ; web-mode, attributes
   (setq web-mode-style-padding n)
-  (setq web-mode-script-padding n)
+  (setq web-mode-script-padding 0)
   (setq web-mode-block-padding n)
   (setq web-mode-comment-style n)
   (setq css-indent-offset n) ; css-mode
@@ -391,7 +392,25 @@ Version 2017-02-10"
 
 (load-library "org-opml")
 (load-library "ox-opml")
-(load-library "org-kanban")
+;; (load-library "org-kanban")
+
+
+;;;;;;;;;;;;;;;;;;;;;;
+;; copy / paste
+;;;;;;;;;;;;;;;;;;;;;;
+(defun copy-from-osx ()
+  (shell-command-to-string "pbpaste"))
+
+(defun paste-to-osx (text &optional push)
+  (let ((process-connection-type nil))
+    (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
+      (process-send-string proc text)
+      (process-send-eof proc))))
+
+(setq interprogram-cut-function 'paste-to-osx)
+(setq interprogram-paste-function 'copy-from-osx)
+
+(require 'init-keymap)
 
 (provide 'init-local)
 ;;; init-local.el ends here
