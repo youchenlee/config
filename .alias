@@ -1,5 +1,4 @@
 # common
-alias ls="gls --color=auto"
 alias gd="git diff"
 alias ec="emacsclient"
 alias e="emacsclient"
@@ -7,9 +6,13 @@ alias e="emacsclient"
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias glp="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit -p"
 alias p="perl6"
+alias ls="ls --color=auto"
+alias grep="grep --color=auto"
 
 
 # mac only
+if [ "$OSTYPE" = "darwin17" ]; then
+alias ls="gls --color=auto"
 alias find="gfind"
 alias tee="gtee"
 alias uniq="guniq"
@@ -19,6 +22,7 @@ alias rm="grm"
 alias sed="gsed"
 alias date="gdate"
 alias stat="gstat"
+fi
 
 
 # linux only

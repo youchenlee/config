@@ -139,15 +139,16 @@ fi
 export EDITOR="emacsclient"
 
 # linux only
-export CLUTTER_IM_MODULE="ibus"
-export GTK_IM_MODULE="ibus"
-export QT4_IM_MODULE="ibus"
-export QT_IM_MODULE="ibus"
-export XMODIFIERS=@im=ibus
+#export CLUTTER_IM_MODULE="ibus"
+#export GTK_IM_MODULE="ibus"
+#export QT4_IM_MODULE="ibus"
+#export QT_IM_MODULE="ibus"
+#export XMODIFIERS=@im=ibus
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export LC_MESSAGES=en_US.UTF-8
+export TERMINAL=lilyterm
 
 #source ~/bin-dev/bin-dev.bashrc
 
@@ -155,10 +156,13 @@ export LC_MESSAGES=en_US.UTF-8
 #    grep -i -B 5 -A 10 $1 ~/Dropbox/10_ORG/workflowy.org
 #}
 
-
-function 3_grep() {
-    sqlite3 ~/Library/Containers/net.shinyfrog.bear/Data/Documents/Application\ Data/database.sqlite "select ZTEXT from ZSFNOTE where ZTEXT LIKE '%$1%';" | \grep --color -i "$1" -B 5 -A 10
+function 3_grep () {
+    rg -B5 -A10 $1 ~/Notebooks/Notes/
 }
+
+#function 3_grep() {
+#    sqlite3 ~/Library/Containers/net.shinyfrog.bear/Data/Documents/Application\ Data/database.sqlite "select ZTEXT from ZSFNOTE where ZTEXT LIKE '%$1%';" | \grep --color -i "$1" -B 5 -A 10
+#}
 
 function 3_tcpdump() {
     interface=wlan0
@@ -198,7 +202,7 @@ complete -F _ssh pnuke
 source ~/config/.alias
 
 
-export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
+#export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
 
 
 export NVM_DIR="$HOME/.nvm"
@@ -216,6 +220,6 @@ alias todo="devtodo2"
 
 #source ~/.bashrc.overwrite
 
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-. $(brew --prefix)/etc/bash_completion
-fi
+#if [ -f $(brew --prefix)/etc/bash_completion ]; then
+#. $(brew --prefix)/etc/bash_completion
+#fi

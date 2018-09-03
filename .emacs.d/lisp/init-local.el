@@ -400,6 +400,7 @@ Version 2017-02-10"
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; copy / paste
 ;;;;;;;;;;;;;;;;;;;;;;
+(when (eq system-type 'darwin)  ; mac specific bindings
 (defun copy-from-osx ()
   (shell-command-to-string "pbpaste"))
 
@@ -411,8 +412,17 @@ Version 2017-02-10"
 
 (setq interprogram-cut-function 'paste-to-osx)
 (setq interprogram-paste-function 'copy-from-osx)
+)
 
-(require 'init-keymap)
+;;;;;;;;;;;;;;;;;;;;;;
+;; projectile
+;;;;;;;;;;;;;;;;;;;;;;
+;; (require 'projectile-mode)
+(projectile-mode +1)
+(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
+;; (require 'init-keymap)
 
 (provide 'init-local)
 ;;; init-local.el ends here
