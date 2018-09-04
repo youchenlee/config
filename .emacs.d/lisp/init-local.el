@@ -1,3 +1,13 @@
+(add-to-list 'package-archives '("cselpa" . "https://elpa.thecybershadow.net/packages/"))
+(when (maybe-require-package 'term-keys)
+  (term-keys-mode t)
+  )
+
+(require 'term-keys-xterm)
+(with-temp-buffer
+    (insert (term-keys/xterm-script))
+      (write-region (point-min) (point-max) "~/launch-xterm-with-term-keys.sh"))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; grep
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -422,7 +432,7 @@ Version 2017-02-10"
 (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
-;; (require 'init-keymap)
+(require 'init-keymap)
 
 (provide 'init-local)
 ;;; init-local.el ends here

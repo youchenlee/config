@@ -1,0 +1,323 @@
+Xft.dpi: 120
+Xft.autohint: 0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
+xterm*inputMethod: fcitx
+
+!ASCII fonts
+!xterm*faceName: DejaVu Sans Mono:antialias=True:pixelsize=20
+xterm*faceName: Noto Mono:style=Regular
+!xterm*faceName: Noto Sans
+!
+!CJK fonts
+!xterm*faceNameDoublesize:  WenQuanYi Zen Hei:antialias=True:pixelsize=20
+xterm*faceNameDoublesize: Noto Sans CJK TC,Noto Sans CJK TC Regular:style=Regular
+!xterm*faceNameDoublesize: Droid Sans Fallback:style=Regular
+!xterm*boldFont: WenQuanYi Zen Hei:pixelsize=20
+XTerm*selectToClipboard: true
+
+
+!xterm*faceName: Bitstream Vera Serif Mono
+xterm*faceSize: 13
+xterm*vt100*geometry: 80x60
+xterm*saveLines: 16384
+xterm*loginShell: true
+xterm*charClass: 33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48
+xterm*termName: xterm-color
+xterm*eightBitInput: false
+
+!BLK Cursor
+#define _color0        #000d18
+#define _color8        #000d18
+!RED Tag
+#define _color1        #e89393
+#define _color9        #e89393
+!GRN SpecialKey
+#define _color2        #9ece9e
+#define _color10       #9ece9e
+!YEL Keyword
+#define _color3        #f0dfaf
+#define _color11       #f0dfaf
+!BLU Number
+#define _color4        #8cd0d3
+#define _color12       #8cd0d3
+!MAG Precondit
+#define _color5        #c0bed1
+#define _color13       #c0bed1
+!CYN Float
+#define _color6        #dfaf8f
+#define _color14       #dfaf8f
+!WHT Search
+#define _color7        #efefef
+#define _color15       #efefef
+!FMT Include, StatusLine, ErrorMsg
+#define _colorBD       #ffcfaf
+#define _colorUL       #ccdc90
+#define _colorIT       #80d4aa
+!TXT Normal, Normal, Cursor
+#define _foreground    #dcdccc
+#define _background    #1f1f1f
+#define _cursorColor   #8faf9f
+URxvt*color0         : _color0
+URxvt*color1         : _color1
+URxvt*color2         : _color2
+URxvt*color3         : _color3
+URxvt*color4         : _color4
+URxvt*color5         : _color5
+URxvt*color6         : _color6
+URxvt*color7         : _color7
+URxvt*color8         : _color8
+URxvt*color9         : _color9
+URxvt*color10        : _color10
+URxvt*color11        : _color11
+URxvt*color12        : _color12
+URxvt*color13        : _color13
+URxvt*color14        : _color14
+URxvt*color15        : _color15
+URxvt*colorBD        : _colorBD
+URxvt*colorIT        : _colorIT
+URxvt*colorUL        : _colorUL
+URxvt*foreground     : _foreground
+URxvt*background     : _background
+URxvt*cursorColor    : _cursorColor
+XTerm*color0         : _color0
+XTerm*color1         : _color1
+XTerm*color2         : _color2
+XTerm*color3         : _color3
+XTerm*color4         : _color4
+XTerm*color5         : _color5
+XTerm*color6         : _color6
+XTerm*color7         : _color7
+XTerm*color8         : _color8
+XTerm*color9         : _color9
+XTerm*color10        : _color10
+XTerm*color11        : _color11
+XTerm*color12        : _color12
+XTerm*color13        : _color13
+XTerm*color14        : _color14
+XTerm*color15        : _color15
+XTerm*colorBD        : _colorBD
+XTerm*colorIT        : _colorIT
+XTerm*colorUL        : _colorUL
+XTerm*foreground     : _foreground
+XTerm*background     : _background
+XTerm*cursorColor    : _cursorColor
+
+*VT100.Translations: #override \
+Shift Ctrl<Key>V: insert-selection(CLIPBOARD) \n\
+Shift Ctrl<Key>V: insert-selection(PRIMARY) \n\
+Shift<Btn1Down>: select-start() \n\
+Shift<Btn1Motion>: select-extend() \n\
+Shift<Btn1Up>: select-end(CLIPBOARD) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> grave      : string(0x1b) string(0x1f) string(0x2a) string(0x62) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> grave      : string(0x1b) string(0x1f) string(0x2a) string(0x63) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> grave      : string(0x1b) string(0x1f) string(0x2a) string(0x66) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> grave      : string(0x1b) string(0x1f) string(0x2a) string(0x67) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> 1          : string(0x1b) string(0x1f) string(0x2b) string(0x42) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> 1          : string(0x1b) string(0x1f) string(0x2b) string(0x43) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> 1          : string(0x1b) string(0x1f) string(0x2b) string(0x46) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> 1          : string(0x1b) string(0x1f) string(0x2b) string(0x47) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> 2          : string(0x1b) string(0x1f) string(0x2c) string(0x22) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> 2          : string(0x1b) string(0x1f) string(0x2c) string(0x23) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> 2          : string(0x1b) string(0x1f) string(0x2c) string(0x26) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> 2          : string(0x1b) string(0x1f) string(0x2c) string(0x27) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> 3          : string(0x1b) string(0x1f) string(0x2c) string(0x62) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> 3          : string(0x1b) string(0x1f) string(0x2c) string(0x63) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> 3          : string(0x1b) string(0x1f) string(0x2c) string(0x66) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> 3          : string(0x1b) string(0x1f) string(0x2c) string(0x67) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> 4          : string(0x1b) string(0x1f) string(0x2d) string(0x42) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> 4          : string(0x1b) string(0x1f) string(0x2d) string(0x43) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> 4          : string(0x1b) string(0x1f) string(0x2d) string(0x46) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> 4          : string(0x1b) string(0x1f) string(0x2d) string(0x47) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> 5          : string(0x1b) string(0x1f) string(0x2e) string(0x22) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> 5          : string(0x1b) string(0x1f) string(0x2e) string(0x23) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> 5          : string(0x1b) string(0x1f) string(0x2e) string(0x26) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> 5          : string(0x1b) string(0x1f) string(0x2e) string(0x27) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> 6          : string(0x1b) string(0x1f) string(0x2e) string(0x62) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> 6          : string(0x1b) string(0x1f) string(0x2e) string(0x63) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> 6          : string(0x1b) string(0x1f) string(0x2e) string(0x66) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> 6          : string(0x1b) string(0x1f) string(0x2e) string(0x67) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> 7          : string(0x1b) string(0x1f) string(0x2f) string(0x42) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> 7          : string(0x1b) string(0x1f) string(0x2f) string(0x43) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> 7          : string(0x1b) string(0x1f) string(0x2f) string(0x46) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> 7          : string(0x1b) string(0x1f) string(0x2f) string(0x47) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> 8          : string(0x1b) string(0x1f) string(0x30) string(0x22) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> 8          : string(0x1b) string(0x1f) string(0x30) string(0x23) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> 8          : string(0x1b) string(0x1f) string(0x30) string(0x26) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> 8          : string(0x1b) string(0x1f) string(0x30) string(0x27) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> 9          : string(0x1b) string(0x1f) string(0x30) string(0x62) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> 9          : string(0x1b) string(0x1f) string(0x30) string(0x63) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> 9          : string(0x1b) string(0x1f) string(0x30) string(0x66) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> 9          : string(0x1b) string(0x1f) string(0x30) string(0x67) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> 0          : string(0x1b) string(0x1f) string(0x31) string(0x42) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> 0          : string(0x1b) string(0x1f) string(0x31) string(0x43) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> 0          : string(0x1b) string(0x1f) string(0x31) string(0x46) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> 0          : string(0x1b) string(0x1f) string(0x31) string(0x47) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> minus      : string(0x1b) string(0x1f) string(0x32) string(0x22) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> minus      : string(0x1b) string(0x1f) string(0x32) string(0x23) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> minus      : string(0x1b) string(0x1f) string(0x32) string(0x26) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> minus      : string(0x1b) string(0x1f) string(0x32) string(0x27) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> equal      : string(0x1b) string(0x1f) string(0x32) string(0x62) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> equal      : string(0x1b) string(0x1f) string(0x32) string(0x63) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> equal      : string(0x1b) string(0x1f) string(0x32) string(0x66) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> equal      : string(0x1b) string(0x1f) string(0x32) string(0x67) string(0x1f) \n\
+ Shift ~Ctrl ~Meta ~Super ~Hyper ~Alt <Key> BackSpace  : string(0x1b) string(0x1f) string(0x33) string(0x41) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> BackSpace  : string(0x1b) string(0x1f) string(0x33) string(0x42) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> BackSpace  : string(0x1b) string(0x1f) string(0x33) string(0x43) string(0x1f) \n\
+ Shift ~Ctrl  Meta ~Super ~Hyper ~Alt <Key> BackSpace  : string(0x1b) string(0x1f) string(0x33) string(0x45) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> BackSpace  : string(0x1b) string(0x1f) string(0x33) string(0x46) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> BackSpace  : string(0x1b) string(0x1f) string(0x33) string(0x47) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> Tab        : string(0x1b) string(0x1f) string(0x34) string(0x22) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> Tab        : string(0x1b) string(0x1f) string(0x34) string(0x23) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> Tab        : string(0x1b) string(0x1f) string(0x34) string(0x26) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> Tab        : string(0x1b) string(0x1f) string(0x34) string(0x27) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> q          : string(0x1b) string(0x1f) string(0x34) string(0x63) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> q          : string(0x1b) string(0x1f) string(0x34) string(0x67) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> w          : string(0x1b) string(0x1f) string(0x35) string(0x43) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> w          : string(0x1b) string(0x1f) string(0x35) string(0x47) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> e          : string(0x1b) string(0x1f) string(0x36) string(0x23) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> e          : string(0x1b) string(0x1f) string(0x36) string(0x27) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> r          : string(0x1b) string(0x1f) string(0x36) string(0x63) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> r          : string(0x1b) string(0x1f) string(0x36) string(0x67) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> t          : string(0x1b) string(0x1f) string(0x37) string(0x43) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> t          : string(0x1b) string(0x1f) string(0x37) string(0x47) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> y          : string(0x1b) string(0x1f) string(0x38) string(0x23) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> y          : string(0x1b) string(0x1f) string(0x38) string(0x27) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> u          : string(0x1b) string(0x1f) string(0x38) string(0x63) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> u          : string(0x1b) string(0x1f) string(0x38) string(0x67) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> i          : string(0x1b) string(0x1f) string(0x39) string(0x43) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> i          : string(0x1b) string(0x1f) string(0x39) string(0x47) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> o          : string(0x1b) string(0x1f) string(0x3a) string(0x23) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> o          : string(0x1b) string(0x1f) string(0x3a) string(0x27) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> p          : string(0x1b) string(0x1f) string(0x3a) string(0x63) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> p          : string(0x1b) string(0x1f) string(0x3a) string(0x67) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> bracketleft: string(0x1b) string(0x1f) string(0x3b) string(0x42) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> bracketleft: string(0x1b) string(0x1f) string(0x3b) string(0x43) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> bracketleft: string(0x1b) string(0x1f) string(0x3b) string(0x46) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> bracketleft: string(0x1b) string(0x1f) string(0x3b) string(0x47) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> bracketright: string(0x1b) string(0x1f) string(0x3c) string(0x22) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> bracketright: string(0x1b) string(0x1f) string(0x3c) string(0x23) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> bracketright: string(0x1b) string(0x1f) string(0x3c) string(0x26) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> bracketright: string(0x1b) string(0x1f) string(0x3c) string(0x27) string(0x1f) \n\
+ Shift ~Ctrl ~Meta ~Super ~Hyper ~Alt <Key> Return     : string(0x1b) string(0x1f) string(0x3c) string(0x61) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> Return     : string(0x1b) string(0x1f) string(0x3c) string(0x62) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> Return     : string(0x1b) string(0x1f) string(0x3c) string(0x63) string(0x1f) \n\
+ Shift ~Ctrl  Meta ~Super ~Hyper ~Alt <Key> Return     : string(0x1b) string(0x1f) string(0x3c) string(0x65) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> Return     : string(0x1b) string(0x1f) string(0x3c) string(0x66) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> Return     : string(0x1b) string(0x1f) string(0x3c) string(0x67) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> a          : string(0x1b) string(0x1f) string(0x3e) string(0x23) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> a          : string(0x1b) string(0x1f) string(0x3e) string(0x27) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> s          : string(0x1b) string(0x1f) string(0x3e) string(0x63) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> s          : string(0x1b) string(0x1f) string(0x3e) string(0x67) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> d          : string(0x1b) string(0x1f) string(0x3f) string(0x43) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> d          : string(0x1b) string(0x1f) string(0x3f) string(0x47) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> f          : string(0x1b) string(0x1f) string(0x40) string(0x23) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> f          : string(0x1b) string(0x1f) string(0x40) string(0x27) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> g          : string(0x1b) string(0x1f) string(0x40) string(0x63) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> g          : string(0x1b) string(0x1f) string(0x40) string(0x66) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> g          : string(0x1b) string(0x1f) string(0x40) string(0x67) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> h          : string(0x1b) string(0x1f) string(0x41) string(0x43) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> h          : string(0x1b) string(0x1f) string(0x41) string(0x47) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> j          : string(0x1b) string(0x1f) string(0x42) string(0x23) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> j          : string(0x1b) string(0x1f) string(0x42) string(0x27) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> k          : string(0x1b) string(0x1f) string(0x42) string(0x63) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> k          : string(0x1b) string(0x1f) string(0x42) string(0x67) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> l          : string(0x1b) string(0x1f) string(0x43) string(0x43) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> l          : string(0x1b) string(0x1f) string(0x43) string(0x47) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> semicolon  : string(0x1b) string(0x1f) string(0x44) string(0x22) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> semicolon  : string(0x1b) string(0x1f) string(0x44) string(0x23) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> semicolon  : string(0x1b) string(0x1f) string(0x44) string(0x26) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> semicolon  : string(0x1b) string(0x1f) string(0x44) string(0x27) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> apostrophe : string(0x1b) string(0x1f) string(0x44) string(0x62) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> apostrophe : string(0x1b) string(0x1f) string(0x44) string(0x63) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> apostrophe : string(0x1b) string(0x1f) string(0x44) string(0x66) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> apostrophe : string(0x1b) string(0x1f) string(0x44) string(0x67) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> backslash  : string(0x1b) string(0x1f) string(0x46) string(0x22) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> backslash  : string(0x1b) string(0x1f) string(0x46) string(0x23) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> backslash  : string(0x1b) string(0x1f) string(0x46) string(0x26) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> backslash  : string(0x1b) string(0x1f) string(0x46) string(0x27) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> z          : string(0x1b) string(0x1f) string(0x46) string(0x63) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> z          : string(0x1b) string(0x1f) string(0x46) string(0x67) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> x          : string(0x1b) string(0x1f) string(0x47) string(0x43) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> x          : string(0x1b) string(0x1f) string(0x47) string(0x47) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> c          : string(0x1b) string(0x1f) string(0x48) string(0x23) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> c          : string(0x1b) string(0x1f) string(0x48) string(0x27) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> v          : string(0x1b) string(0x1f) string(0x48) string(0x63) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> v          : string(0x1b) string(0x1f) string(0x48) string(0x67) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> b          : string(0x1b) string(0x1f) string(0x49) string(0x43) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> b          : string(0x1b) string(0x1f) string(0x49) string(0x47) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> n          : string(0x1b) string(0x1f) string(0x4a) string(0x23) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> n          : string(0x1b) string(0x1f) string(0x4a) string(0x27) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> m          : string(0x1b) string(0x1f) string(0x4a) string(0x63) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> m          : string(0x1b) string(0x1f) string(0x4a) string(0x67) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> comma      : string(0x1b) string(0x1f) string(0x4b) string(0x42) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> comma      : string(0x1b) string(0x1f) string(0x4b) string(0x43) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> comma      : string(0x1b) string(0x1f) string(0x4b) string(0x46) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> comma      : string(0x1b) string(0x1f) string(0x4b) string(0x47) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> period     : string(0x1b) string(0x1f) string(0x4c) string(0x22) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> period     : string(0x1b) string(0x1f) string(0x4c) string(0x23) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> period     : string(0x1b) string(0x1f) string(0x4c) string(0x26) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> period     : string(0x1b) string(0x1f) string(0x4c) string(0x27) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> slash      : string(0x1b) string(0x1f) string(0x4c) string(0x62) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> slash      : string(0x1b) string(0x1f) string(0x4c) string(0x63) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> slash      : string(0x1b) string(0x1f) string(0x4c) string(0x66) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> slash      : string(0x1b) string(0x1f) string(0x4c) string(0x67) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> space      : string(0x1b) string(0x1f) string(0x50) string(0x22) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> space      : string(0x1b) string(0x1f) string(0x50) string(0x23) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> space      : string(0x1b) string(0x1f) string(0x50) string(0x26) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> space      : string(0x1b) string(0x1f) string(0x50) string(0x27) string(0x1f) \n\
+~Shift ~Ctrl ~Meta ~Super ~Hyper ~Alt <Key> Menu       : string(0x1b) string(0x1f) string(0x52) string(0x20) string(0x1f) \n\
+ Shift ~Ctrl ~Meta ~Super ~Hyper ~Alt <Key> Menu       : string(0x1b) string(0x1f) string(0x52) string(0x21) string(0x1f) \n\
+~Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> Menu       : string(0x1b) string(0x1f) string(0x52) string(0x22) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> Menu       : string(0x1b) string(0x1f) string(0x52) string(0x23) string(0x1f) \n\
+~Shift ~Ctrl  Meta ~Super ~Hyper ~Alt <Key> Menu       : string(0x1b) string(0x1f) string(0x52) string(0x24) string(0x1f) \n\
+ Shift ~Ctrl  Meta ~Super ~Hyper ~Alt <Key> Menu       : string(0x1b) string(0x1f) string(0x52) string(0x25) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> Menu       : string(0x1b) string(0x1f) string(0x52) string(0x26) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> Menu       : string(0x1b) string(0x1f) string(0x52) string(0x27) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> Up         : string(0x1b) string(0x1f) string(0x53) string(0x43) string(0x1f) \n\
+~Shift ~Ctrl  Meta ~Super ~Hyper ~Alt <Key> Up         : string(0x1b) string(0x1f) string(0x53) string(0x44) string(0x1f) \n\
+ Shift ~Ctrl  Meta ~Super ~Hyper ~Alt <Key> Up         : string(0x1b) string(0x1f) string(0x53) string(0x45) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> Up         : string(0x1b) string(0x1f) string(0x53) string(0x46) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> Up         : string(0x1b) string(0x1f) string(0x53) string(0x47) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> Down       : string(0x1b) string(0x1f) string(0x54) string(0x23) string(0x1f) \n\
+~Shift ~Ctrl  Meta ~Super ~Hyper ~Alt <Key> Down       : string(0x1b) string(0x1f) string(0x54) string(0x24) string(0x1f) \n\
+ Shift ~Ctrl  Meta ~Super ~Hyper ~Alt <Key> Down       : string(0x1b) string(0x1f) string(0x54) string(0x25) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> Down       : string(0x1b) string(0x1f) string(0x54) string(0x26) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> Down       : string(0x1b) string(0x1f) string(0x54) string(0x27) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> Left       : string(0x1b) string(0x1f) string(0x54) string(0x63) string(0x1f) \n\
+~Shift ~Ctrl  Meta ~Super ~Hyper ~Alt <Key> Left       : string(0x1b) string(0x1f) string(0x54) string(0x64) string(0x1f) \n\
+ Shift ~Ctrl  Meta ~Super ~Hyper ~Alt <Key> Left       : string(0x1b) string(0x1f) string(0x54) string(0x65) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> Left       : string(0x1b) string(0x1f) string(0x54) string(0x66) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> Left       : string(0x1b) string(0x1f) string(0x54) string(0x67) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> Right      : string(0x1b) string(0x1f) string(0x55) string(0x43) string(0x1f) \n\
+~Shift ~Ctrl  Meta ~Super ~Hyper ~Alt <Key> Right      : string(0x1b) string(0x1f) string(0x55) string(0x44) string(0x1f) \n\
+ Shift ~Ctrl  Meta ~Super ~Hyper ~Alt <Key> Right      : string(0x1b) string(0x1f) string(0x55) string(0x45) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> Right      : string(0x1b) string(0x1f) string(0x55) string(0x46) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> Right      : string(0x1b) string(0x1f) string(0x55) string(0x47) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> Home       : string(0x1b) string(0x1f) string(0x57) string(0x43) string(0x1f) \n\
+~Shift ~Ctrl  Meta ~Super ~Hyper ~Alt <Key> Home       : string(0x1b) string(0x1f) string(0x57) string(0x44) string(0x1f) \n\
+ Shift ~Ctrl  Meta ~Super ~Hyper ~Alt <Key> Home       : string(0x1b) string(0x1f) string(0x57) string(0x45) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> Home       : string(0x1b) string(0x1f) string(0x57) string(0x46) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> Home       : string(0x1b) string(0x1f) string(0x57) string(0x47) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> End        : string(0x1b) string(0x1f) string(0x58) string(0x23) string(0x1f) \n\
+~Shift ~Ctrl  Meta ~Super ~Hyper ~Alt <Key> End        : string(0x1b) string(0x1f) string(0x58) string(0x24) string(0x1f) \n\
+ Shift ~Ctrl  Meta ~Super ~Hyper ~Alt <Key> End        : string(0x1b) string(0x1f) string(0x58) string(0x25) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> End        : string(0x1b) string(0x1f) string(0x58) string(0x26) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> End        : string(0x1b) string(0x1f) string(0x58) string(0x27) string(0x1f) \n\
+ Shift ~Ctrl ~Meta ~Super ~Hyper ~Alt <Key> Prior      : string(0x1b) string(0x1f) string(0x58) string(0x61) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> Prior      : string(0x1b) string(0x1f) string(0x58) string(0x63) string(0x1f) \n\
+~Shift ~Ctrl  Meta ~Super ~Hyper ~Alt <Key> Prior      : string(0x1b) string(0x1f) string(0x58) string(0x64) string(0x1f) \n\
+ Shift ~Ctrl  Meta ~Super ~Hyper ~Alt <Key> Prior      : string(0x1b) string(0x1f) string(0x58) string(0x65) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> Prior      : string(0x1b) string(0x1f) string(0x58) string(0x66) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> Prior      : string(0x1b) string(0x1f) string(0x58) string(0x67) string(0x1f) \n\
+ Shift ~Ctrl ~Meta ~Super ~Hyper ~Alt <Key> Next       : string(0x1b) string(0x1f) string(0x59) string(0x41) string(0x1f) \n\
+ Shift  Ctrl ~Meta ~Super ~Hyper ~Alt <Key> Next       : string(0x1b) string(0x1f) string(0x59) string(0x43) string(0x1f) \n\
+~Shift ~Ctrl  Meta ~Super ~Hyper ~Alt <Key> Next       : string(0x1b) string(0x1f) string(0x59) string(0x44) string(0x1f) \n\
+ Shift ~Ctrl  Meta ~Super ~Hyper ~Alt <Key> Next       : string(0x1b) string(0x1f) string(0x59) string(0x45) string(0x1f) \n\
+~Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> Next       : string(0x1b) string(0x1f) string(0x59) string(0x46) string(0x1f) \n\
+ Shift  Ctrl  Meta ~Super ~Hyper ~Alt <Key> Next       : string(0x1b) string(0x1f) string(0x59) string(0x47) string(0x1f)
+
