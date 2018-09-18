@@ -432,7 +432,7 @@ Version 2017-02-10"
 (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
-(require 'init-keymap)
+;; (require 'init-keymap)
 
 (provide 'init-local)
 ;;; init-local.el ends here
