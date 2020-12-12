@@ -31,6 +31,9 @@
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "M-h") 'backward-kill-word)
 
+;(require 'expand-region)
+;(global-set-key (kbd "C-i") 'er/expand-region)
+
 
 ;; smart C-a
 ;; http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/
@@ -171,7 +174,7 @@ point reaches the beginning or end of the buffer, stop there."
   (setq typescript-indent-level 2) ; typescript-mode
   )
 
-(my-setup-indent 2)
+(my-setup-indent 4)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -402,8 +405,8 @@ Version 2017-02-10"
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/")
 
-(load-library "org-opml")
-(load-library "ox-opml")
+;; (load-library "org-opml")
+;; (load-library "ox-opml")
 ;; (load-library "org-kanban")
 
 
@@ -411,18 +414,18 @@ Version 2017-02-10"
 ;; copy / paste
 ;;;;;;;;;;;;;;;;;;;;;;
 (when (eq system-type 'darwin)  ; mac specific bindings
-(defun copy-from-osx ()
-  (shell-command-to-string "pbpaste"))
+  (defun copy-from-osx ()
+    (shell-command-to-string "pbpaste"))
 
-(defun paste-to-osx (text &optional push)
-  (let ((process-connection-type nil))
-    (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
-      (process-send-string proc text)
-      (process-send-eof proc))))
+  (defun paste-to-osx (text &optional push)
+    (let ((process-connection-type nil))
+      (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
+        (process-send-string proc text)
+        (process-send-eof proc))))
 
-(setq interprogram-cut-function 'paste-to-osx)
-(setq interprogram-paste-function 'copy-from-osx)
-)
+  (setq interprogram-cut-function 'paste-to-osx)
+  (setq interprogram-paste-function 'copy-from-osx)
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; projectile
@@ -433,6 +436,25 @@ Version 2017-02-10"
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 ;; (require 'init-keymap)
+
+
+;; Goto to file under cursor, gf in vim
+(defun shell-command-to-string (command)
+  "Execute shell command COMMAND and return its output as a string."
+  (with-output-to-string
+    (with-current-buffer standard-output
+      (call-process shell-file-name nil t nil shell-command-switch command))))
+
+(defun goto-file ()
+  "open file under cursor"
+  (interactive)
+  (find-file (shell-command-to-string
+              (concat "locate " (current-word) "|head -c -1"))))
+(global-set-key (kbd "C-c C-f") 'goto-file)
+
+
+
+(elpy-enable)
 
 (provide 'init-local)
 ;;; init-local.el ends here
