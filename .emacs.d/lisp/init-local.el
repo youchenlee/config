@@ -5,10 +5,15 @@
 
 (require 'term-keys-xterm)
 (with-temp-buffer
-    (insert (term-keys/xterm-script))
-      (write-region (point-min) (point-max) "~/launch-xterm-with-term-keys.sh"))
+  (insert (term-keys/xterm-script))
+  (write-region (point-min) (point-max) "~/launch-xterm-with-term-keys.sh"))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; theme
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(add-hook 'after-init-hook (lambda () (load-theme 'sanityinc-tomorrow-night)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; grep
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq grep-command "grep --color -nH -e -i ") ; default "grep --color -nH -e "
@@ -24,18 +29,30 @@
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
+;; Bind Super to Meta
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; (setq x-super-keysym 'meta)
+
+;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Common key binding
 ;;;;;;;;;;;;;;;;;;;;;;;;
 (global-set-key (kbd "C-?") 'help-command)
 (global-set-key (kbd "M-?") 'mark-paragraph)
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "M-h") 'backward-kill-word)
-
-;(require 'expand-region)
-;(global-set-key (kbd "C-i") 'er/expand-region)
+(global-set-key (kbd "C-S-i") 'mc/mark-next-like-this)
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; Expand Region
+;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'expand-region)
+(global-set-key (kbd "C-i") 'er/expand-region)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;
 ;; smart C-a
+;;;;;;;;;;;;;;;;;;;;;;;;
 ;; http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/
 (defun smarter-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.
@@ -365,14 +382,14 @@ Version 2017-02-10"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ivy
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(when (maybe-require-package 'rg)
+(when (maybe-require-package 'counsel)
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
   (global-set-key "\C-s" 'counsel-grep-or-swiper)
   ;;(global-set-key "\C-s" 'counsel-grep)
   (global-set-key (kbd "C-c C-r") 'ivy-resume)
   (global-set-key (kbd "<f6>") 'ivy-resume)
-  (global-set-key (kbd "M-x") 'counsel-M-x)
+  ;;(global-set-key (kbd "M-x") 'counsel-M-x)
   (global-set-key (kbd "C-x C-f") 'counsel-find-file)
   (global-set-key (kbd "<f1> f") 'counsel-describe-function)
   (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
@@ -454,7 +471,24 @@ Version 2017-02-10"
 
 
 
-(elpy-enable)
+(defun xah-toggle-line-spacing ()
+  "Toggle line spacing between no extra space to extra half line height.
+URL `http://ergoemacs.org/emacs/emacs_toggle_line_spacing.html'
+Version 2017-06-02"
+  (interactive)
+  (if line-spacing
+      (setq line-spacing nil)
+    (setq line-spacing 0.1))
+  (redraw-frame (selected-frame)))
+
+;; disabled for performance issue
+;;(elpy-enable)
+
+;; Pretty symbols (=>, lambda, or, and ...)
+(global-prettify-symbols-mode 1)
+
+;; Chars per line
+(set-fill-column 120)
 
 (provide 'init-local)
 ;;; init-local.el ends here
