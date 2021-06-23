@@ -5,6 +5,7 @@ general {
 
 #order += "read_file BRIGHTNESS"
 order += "volume master"
+#order += "volume mic"
 order += "cpu_usage"
 order += "disk /"
 order += "wireless _first_"
@@ -20,6 +21,14 @@ volume master {
         device = "default"
         mixer = "Master"
         mixer_idx = 0
+}
+
+volume mic {
+  format = " %volume"
+  format_muted = " (%volume)"
+  device = "pulse:alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp_6__source"
+  #mixer = "Dmic0"
+  #mixer_idx = 3
 }
 
 read_file BRIGHTNESS {
