@@ -1,0 +1,4 @@
+$include /etc/inputrc
+
+# Meta-h: backward-kill-word
+"\eh": backward-kill-word

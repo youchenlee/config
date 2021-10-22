@@ -157,7 +157,7 @@ export XMODIFIERS=@im=fcitx
 #}
 
 function 3_grep () {
-    rg -B5 -A10 $1 ~/Dropbox/00-zim/Notes/
+    rg -B5 -A10 $1 ~/Dropbox/2021-notes/
 }
 
 function log.l {
