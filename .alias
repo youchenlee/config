@@ -9,6 +9,14 @@ alias p="perl6"
 alias ls="ls --color=auto"
 alias grep="grep --color=auto"
 
+function gs () {
+    git log -S "$1"
+}
+
+function gsp () {
+    git log -S "$1" -p
+}
+
 
 # mac only
 if [ "$OSTYPE" = "darwin17" ]; then

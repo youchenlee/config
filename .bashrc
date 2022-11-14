@@ -157,7 +157,7 @@ export XMODIFIERS=@im=fcitx
 #}
 
 function 3_grep () {
-    rg -B5 -A10 $1 ~/Dropbox/2021-notes/
+    rg -B5 -A10 "$1" ~/Dropbox/2021-notes/
 }
 
 function log.l {
@@ -311,3 +311,10 @@ alias sagent="sshagent_init"
 sagent
 #eval `ssh-agent`
 
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+
+
+export HISTSIZE=10000
+export HISTFILESIZE=10000

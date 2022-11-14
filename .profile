@@ -14,3 +14,8 @@ export PATH
 
 #export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 #export GOPATH=~/gocode
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+
