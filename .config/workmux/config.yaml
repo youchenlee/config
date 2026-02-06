@@ -1,0 +1,5 @@
+nerdfont: true
+
+files:
+  symlink:
+    - .claude/settings.local.json
