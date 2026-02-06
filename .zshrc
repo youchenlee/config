@@ -23,7 +23,7 @@ export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 export PATH="$HOME/.emacs.d/bin:$PATH"
 export PATH="/opt/homebrew/Cellar/rakudo/2023.05/share/perl6/site/bin:$PATH"
 export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
-export PATH="$PATH:$HOME/.cache/lm-studio/bin"
+export PATH="$PATH:$HOME/.lmstudio/bin"
 
 # build flags (grpc + ruby)
 export GRPC_BUILD_WITH_BORING_SSL_ASM=0
@@ -61,6 +61,17 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 export PNPM_HOME="$HOME/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
+# history
+HISTSIZE=10000
+HISTFILESIZE=20000
+setopt EXTENDED_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_IGNORE_SPACE
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_VERIFY
+
 # fzf
 source <(fzf --zsh)
 
@@ -70,9 +81,9 @@ complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
 # gcloud
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-export PATH_GCP_SDK="$HOME/Downloads/google-cloud-sdk"
-[ -f "$HOME/Downloads/google-cloud-sdk/path.zsh.inc" ] && . "$HOME/Downloads/google-cloud-sdk/path.zsh.inc"
-[ -f "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc" ] && . "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc"
+export PATH_GCP_SDK="$HOME/google-cloud-sdk"
+[ -f "$HOME/google-cloud-sdk/path.zsh.inc" ] && . "$HOME/google-cloud-sdk/path.zsh.inc"
+[ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ] && . "$HOME/google-cloud-sdk/completion.zsh.inc"
 
 # docker
 source "$HOME/.docker/init-zsh.sh" 2>/dev/null || true
@@ -87,4 +98,12 @@ source ~/config/.alias
 # utils
 print_link() {
   printf '\033]8;;%s\033\\%s\033]8;;\033\\\n' "$1" "$2"
+}
+
+git() {
+  if [[ "$1" == "push" && "$*" == *"--force"* && "$*" != *"--force-with-lease"* ]]; then
+    echo "⚠️  Use --force-with-lease instead of --force"
+    return 1
+  fi
+  command git "$@"
 }

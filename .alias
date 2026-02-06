@@ -26,7 +26,8 @@ alias ripgrep=rg
 alias zz="zellij"
 alias wm='workmux'
 alias ec="emacsclient"
-alias e="emacsclient"
+# alias e="emacsclient"
+alias e="emacs -nw"
 alias ff='rg --files | sk --preview="bat {} --color=always"'
 alias aga="ag dev new -a"
 

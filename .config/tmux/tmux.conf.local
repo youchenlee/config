@@ -7,6 +7,7 @@
 #         Copyright 2012— Gregory Pakosz (@gpakosz).
 
 bind C-s display-popup -h 30 -w 100 -E "workmux dashboard"
+bind-key -n ‰ send-keys -H 0a # newline (claude code/codex/etc)
 
 # -- bindings ------------------------------------------------------------------
 
@@ -407,6 +408,10 @@ tmux_conf_urlscan_options="--compact --dedupe"
 
 # display a message after toggling mouse support
 bind m run "cut -c3- '#{TMUX_CONF}' | sh -s _toggle_mouse" \; display 'mouse #{?#{mouse},on,off}'
+
+# dim unfocused panes for clear focus indicator
+set -g window-style 'bg=#3a3e4a' #!important
+set -g window-active-style 'bg=#282c34' #!important
 
 # move status line to top
 #set -g status-position top

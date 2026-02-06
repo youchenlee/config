@@ -1,0 +1,413 @@
+#!env python3
+
+import os
+import sys
+from slack_sdk import WebClient
+from slack_sdk.errors import SlackApiError
+from datetime import datetime, timedelta
+import argparse
+import concurrent.futures
+from functools import partial
+import json
+
+CACHE_FILE = os.path.expanduser('~/slack_channels_cache.json')
+CACHE_EXPIRY = 30 * 24 * 3600  # 30 days in seconds
+
+def search_slack(client, query, max_results=1000, excluded_channels=["lock-unlock"], verbose=False, quiet=False):
+    try:
+        markdown_output = "" if quiet else f"# 搜尋結果: {query}\n\n"
+        total_matches = 0
+        page = 1
+
+        if verbose and not quiet:
+            print(f"開始搜索 '{query}'")
+            print(f"排除的頻道: {', '.join(excluded_channels)}")
+
+        while total_matches < max_results:
+            if verbose and not quiet:
+                print(f"正在獲取第 {page} 頁的結果...")
+
+            result = client.search_messages(
+                query=query,
+                count=100,  # 每次請求100條結果
+                page=page
+            )
+            
+            matches = result["messages"]["matches"]
+            
+            if verbose and not quiet:
+                print(f"在第 {page} 頁找到 {len(matches)} 條匹配的消息")
+
+            for match in matches:
+                channel = match["channel"]["name"]
+                
+                # 跳過被排除的頻道
+                if channel in excluded_channels:
+                    if verbose and not quiet:
+                        print(f"跳過來自排除頻道的消息: {channel}")
+                    continue
+                
+                text = match["text"]
+                user = match.get("username", "Unknown User")
+                timestamp = datetime.fromtimestamp(float(match["ts"])).strftime("%Y-%m-%d %H:%M:%S")
+                
+                if quiet:
+                    markdown_output += f"{user} ({timestamp}): {text}\n\n"
+                else:
+                    markdown_output += f"## 搜尋結果 {total_matches + 1}\n\n"
+                    markdown_output += f"- 頻道: `{channel}`\n"
+                    markdown_output += f"- 發送者: `{user}`\n"
+                    markdown_output += f"- 時間: `{timestamp}`\n"
+                    markdown_output += f"- 連結: {match['permalink']}\n"
+                    markdown_output += f"- 內容:\n{text}\n\n"
+
+                total_matches += 1
+                if verbose and not quiet:
+                    print(f"已處理 {total_matches} 條匹配的消息")
+
+                if total_matches >= max_results:
+                    if verbose and not quiet:
+                        print(f"已達到最大結果數 {max_results}，停止搜索")
+                    break
+
+            if result["messages"]["paging"]["pages"] <= page:
+                if verbose and not quiet:
+                    print("沒有更多頁面，搜索結束")
+                break
+
+            page += 1
+
+        if not quiet:
+            markdown_output += f"\n總共找到 {total_matches} 條匹配的訊息。\n"
+        if verbose and not quiet:
+            print(f"搜索完成，總共找到 {total_matches} 條匹配的訊息")
+        return markdown_output
+    
+    except SlackApiError as e:
+        print(f"錯誤: {e}")
+        sys.exit(1)
+
+
+def show_channel(client, channel):
+    try:
+        # 獲取所有頻道列表
+        all_channels = get_all_channels(client)
+        channel_names = [ch["name"] for ch in all_channels]
+        
+        # 檢查指定的頻道是否存在
+        if channel not in channel_names:
+            markdown_output = f"錯: 找不到頻道 '{channel}'\n\n"
+            markdown_output += "可用的頻道列表:\n\n"
+            for ch_name in channel_names:
+                markdown_output += f"- {ch_name}\n"
+            markdown_output += "\n使用方法: python script.py show <頻道名稱>\n"
+            markdown_output += "例如: python script.py show general\n"
+            return markdown_output
+
+        # 獲取頻道 ID
+        channel_id = next(ch["id"] for ch in all_channels if ch["name"] == channel)
+
+        # 獲取最新訊
+        result = client.conversations_history(channel=channel_id, limit=1)
+        if not result["messages"]:
+            return f"# 頻道 #{channel} 中沒有訊\n"
+
+        latest_message = result["messages"][0]
+        
+        markdown_output = f"# 頻道 #{channel} 的最新訊息\n\n"
+        markdown_output += format_message(client, latest_message, channel)
+
+        # 獲取該訊息的回覆
+        if "thread_ts" in latest_message:
+            replies = client.conversations_replies(channel=channel_id, ts=latest_message["thread_ts"])
+            for reply in replies["messages"][1:]:  # 跳過第一個訊息，因為它就是原始訊息
+                markdown_output += format_message(client, reply, channel, is_reply=True)
+
+        return markdown_output
+
+    except SlackApiError as e:
+        print(f"錯誤: {e}")
+        sys.exit(1)
+
+def get_all_channels(client, verbose=False, use_cache=True):
+    if use_cache:
+        cached_channels = read_cache()
+        if cached_channels:
+            if verbose:
+                print("Using cached channel list")
+            return cached_channels
+
+    try:
+        all_channels = []
+        cursor = None
+        while True:
+            if verbose:
+                print("Fetching channels...")
+            result = client.users_conversations(
+                types="public_channel,private_channel",  # 排除 DMs 和多人 DMs
+                exclude_archived=True,
+                limit=1000,
+                cursor=cursor
+            )
+            all_channels.extend(result["channels"])
+            cursor = result["response_metadata"].get("next_cursor")
+            if not cursor:
+                break
+        
+        if use_cache:
+            write_cache(all_channels)
+        
+        return all_channels
+    except SlackApiError as e:
+        print(f"錯誤: {e}")
+        sys.exit(1)
+
+def read_cache():
+    if os.path.exists(CACHE_FILE):
+        with open(CACHE_FILE, 'r') as f:
+            cache_data = json.load(f)
+        if datetime.now().timestamp() - cache_data['timestamp'] < CACHE_EXPIRY:
+            return cache_data['channels']
+    return None
+
+def write_cache(channels):
+    cache_data = {
+        'timestamp': datetime.now().timestamp(),
+        'channels': channels
+    }
+    with open(CACHE_FILE, 'w') as f:
+        json.dump(cache_data, f)
+
+def get_channel_history(client, channel, latest_timestamp, oldest_timestamp, max_messages, verbose=False):
+    channel_id = channel['id']
+    channel_name = channel['name']
+    
+    if verbose:
+        print(f"Fetching history for channel: {channel_name}")
+    
+    result = client.conversations_history(
+        channel=channel_id,
+        latest=str(latest_timestamp),
+        oldest=str(oldest_timestamp),
+        limit=min(100, max_messages)
+    )
+    
+    messages = result["messages"]
+    
+    if verbose:
+        print(f"Fetched {len(messages)} messages from {channel_name}")
+    
+    return channel_name, messages
+
+def show_recent_messages(client, hours=24, max_messages=200, channel_whitelist=None, verbose=False):
+    try:
+        # Default whitelist of public channels
+        default_whitelist = [
+            "general", "24-team-software", "debug", "entertainment", "24-team-mkt",
+            "edu_publish", "現場產品反饋", "24-team-data", "share_n_hooray",
+            "辦公室營運公告", "tech_frontend", "24-team-product", "tech_backend",
+            "release", "dev-deployment", "bug-討論區", "設計系統_design_system",
+            "軟體技術討論區", "product-release-note", "micro_sharing", "24-data-scrum",
+            "快樂小夥伴與開心的isacl", "產品x軟體-綜合討論區", "24-op1-scrum",
+            "no-publish後續使用反饋集中區", "24_team_永續", "24-data-test-env",
+            "24-team-內容", "24_team_師培", "24-team-design", "24-team-infra",
+            "sre-monitoring", "sre-tracing", "均一客服大群", "co-working-club",
+            "24-op1-建題與上架工具", "24-s1xs2xdata-略影響力大無", "事業1-公開群omo_mooc",
+            "事業1-mooc-s1-主動學習的內容平台", "24-星空探險隊", "徵求review"
+        ]
+
+        # Use the provided whitelist if available, otherwise use the default
+        whitelist = channel_whitelist if channel_whitelist is not None else default_whitelist
+
+        # Calculate the timestamp for 24 hours ago
+        now = datetime.now()
+        hours_ago = now - timedelta(hours=hours)
+        latest_timestamp = now.timestamp()
+        oldest_timestamp = hours_ago.timestamp()
+
+        markdown_output = f"# Recent messages from the last {hours} hours (max {max_messages})\n\n"
+        message_count = 0
+
+        # Get all channels the user is a member of
+        all_channels = get_all_channels(client, verbose, use_cache=True)
+        
+        if verbose:
+            print(f"Fetched {len(all_channels)} channels.")
+
+        # Filter channels based on whitelist
+        channels = [ch for ch in all_channels if ch.get('name') in whitelist]
+        
+        if verbose:
+            print(f"Filtered to {len(channels)} channels based on whitelist.")
+
+        # Get the last activity time for each channel
+        channel_last_activity = {}
+        if verbose:
+            print("Checking last activity for each channel...")
+        
+        for channel in channels:
+            channel_id = channel['id']
+            channel_name = channel['name']
+            try:
+                result = client.conversations_info(channel=channel_id)
+                last_activity = float(result['channel']['last_read'])
+                if last_activity >= oldest_timestamp:
+                    channel_last_activity[channel_id] = last_activity
+                if verbose:
+                    print(f"Channel {channel_name}: last activity at {datetime.fromtimestamp(last_activity)}")
+            except SlackApiError as e:
+                print(f"Error fetching info for channel {channel_name}: {e}")
+                # Continue with the next channel
+
+        # Only process channels with recent activity
+        active_channels = [ch for ch in channels if ch['id'] in channel_last_activity]
+        
+        if verbose:
+            print(f"Found {len(active_channels)} channels with recent activity.")
+
+        user_cache = {}  # 用於緩存用戶信息
+
+        def get_cached_user_name(user_id):
+            if user_id not in user_cache:
+                user_cache[user_id] = get_user_name(client, user_id)
+            return user_cache[user_id]
+
+        # Use ThreadPoolExecutor for parallel processing
+        with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
+            if verbose:
+                print("Starting parallel processing of channel histories...")
+            future_to_channel = {
+                executor.submit(
+                    get_channel_history, 
+                    client, 
+                    channel, 
+                    latest_timestamp, 
+                    oldest_timestamp, 
+                    max_messages,
+                    verbose
+                ): channel for channel in active_channels
+            }
+
+            for future in concurrent.futures.as_completed(future_to_channel):
+                channel_name, messages = future.result()
+                
+                if verbose:
+                    print(f"Fetched {len(messages)} messages from channel: {channel_name}")
+
+                for message in messages:
+                    message_count += 1
+                    markdown_output += format_message(client, message, channel_name, get_cached_user_name)
+                    if message_count >= max_messages:
+                        if verbose:
+                            print(f"Reached max messages limit ({max_messages}). Stopping.")
+                        break
+
+                if message_count >= max_messages:
+                    break
+
+        if message_count == 0:
+            markdown_output += f"No messages found in the last {hours} hours.\n"
+        else:
+            markdown_output += f"\nTotal messages retrieved: {message_count}\n"
+
+        if verbose:
+            print(f"Finished processing. Total messages retrieved: {message_count}")
+
+        return markdown_output
+
+    except SlackApiError as e:
+        print(f"Error: {e}")
+        sys.exit(1)
+
+def get_recent_conversations(client, limit=20):
+    try:
+        result = client.conversations_list(
+            types="public_channel,private_channel,mpim,im",
+            limit=limit,
+            exclude_archived=True
+        )
+        return result["channels"]
+    except SlackApiError as e:
+        print(f"Error: {e}")
+        sys.exit(1)
+
+def get_user_name(client, user_id):
+    try:
+        user_info = client.users_info(user=user_id)
+        return user_info['user']['real_name']
+    except SlackApiError:
+        return "Unknown User"
+
+def format_message(client, message, channel_name, get_user_name_func, is_reply=False):
+    user_id = message.get("user", "Unknown User")
+    user_name = get_user_name_func(user_id)
+    text = message["text"]
+    timestamp = datetime.fromtimestamp(float(message["ts"])).strftime("%Y-%m-%d %H:%M:%S")
+    
+    prefix = "  " if is_reply else ""
+    markdown = f"{prefix}## Message in {channel_name}\n\n"
+    markdown += f"{prefix}**Sender:** `{user_name}`\n\n"
+    markdown += f"{prefix}**Time:** `{timestamp}`\n\n"
+    markdown += f"{prefix}**Message Content:**\n\n{text}\n\n"
+    markdown += "---\n\n"
+    return markdown
+
+
+def show_my_channels(client, verbose=False):
+    try:
+        channels = get_all_channels(client, verbose)
+        markdown_output = "# Your Channels\n\n"
+        for channel in channels:
+            channel_name = channel.get('name', 'Direct Message')
+            channel_type = 'Private' if channel.get('is_private', True) else 'Public'
+            
+            if channel.get('is_im', False):
+                # For direct messages, use the user's name instead of 'Direct Message'
+                user_info = client.users_info(user=channel['user'])
+                channel_name = f"DM with {user_info['user']['name']}"
+            
+            markdown_output += f"- {channel_name} ({channel_type})\n"
+        return markdown_output
+    except SlackApiError as e:
+        print(f"Error: {e}")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Slack API interaction script")
+    parser.add_argument("command", choices=["search", "show", "recent", "show-my-channels"], help="Command to execute")
+    parser.add_argument("argument", nargs="?", help="Argument for the command (if required)")
+    parser.add_argument("--verbose", action="store_true", help="Enable verbose output")
+    parser.add_argument("--quiet", "-q", action="store_true", help="Show minimal output for search results")
+    parser.add_argument("--max-results", type=int, default=500, help="Maximum number of search results (default: 500)")
+    parser.add_argument("--exclude", nargs="+", default=["lock-unlock"], help="Channels to exclude from search results")
+    args = parser.parse_args()
+
+    token = os.environ.get('SLACK_API_KEY')
+    if not token:
+        print("錯誤: 未設置 SLACK_API_KEY 環境變數")
+        sys.exit(1)
+
+    client = WebClient(token=token)
+
+    if args.command == "search":
+        if not args.argument:
+            print("使用方式: python script.py search <關鍵字>")
+            sys.exit(1)
+        print(f"正在搜索 '{args.argument}'，最多返回 {args.max_results} 條結果...")
+        print(f"排除的頻道: {', '.join(args.exclude)}")
+        result = search_slack(client, args.argument, max_results=args.max_results, excluded_channels=args.exclude, verbose=args.verbose, quiet=args.quiet)
+        print("搜索完成。")
+    elif args.command == "show":
+        if not args.argument:
+            print("使用方式: python script.py show <頻道名稱>")
+            sys.exit(1)
+        result = show_channel(client, args.argument)
+    elif args.command == "recent":
+        result = show_recent_messages(client, max_messages=200, verbose=args.verbose)
+    elif args.command == "show-my-channels":
+        result = show_my_channels(client, verbose=args.verbose)
+    else:
+        print("Error: Invalid command. Please use 'search', 'show', 'recent', or 'show-my-channels'.")
+        sys.exit(1)
+
+    print(result)

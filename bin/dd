@@ -1,0 +1,40 @@
+#!/usr/bin/python3
+import os
+import textwrap
+
+def dump_dir_tree_with_content_markdown(path, allowed_extensions):
+    markdown_output = []
+    
+    def scan_directory(current_path, level=0):
+        with os.scandir(current_path) as entries:
+            entries = sorted(entries, key=lambda e: (not e.is_dir(), e.name))
+            for entry in entries:
+                indent = "  " * level
+                name = entry.name + '/' if entry.is_dir() else entry.name
+                markdown_output.append(f"{indent} - {name}")
+                
+                if entry.is_file() and entry.name.endswith(allowed_extensions):
+                    try:
+                        with open(entry.path, 'r', encoding='utf-8') as file:
+                            content = file.read().strip()
+                            content = textwrap.indent(content, prefix="  ")
+                            markdown_output.append(f"{indent}   內容:")
+                            markdown_output.append(f"{indent}   ```")
+                            markdown_output.append(content)
+                            markdown_output.append(f"{indent}   ```")
+                    except Exception as e:
+                        markdown_output.append(f"{indent}   無法讀取檔案內容: {str(e)}")
+                elif entry.is_dir():
+                    scan_directory(entry.path, level + 1)
+
+    markdown_output.append(f"# 目錄樹結構與檔案內容 - {path}")
+    markdown_output.append("---")
+    scan_directory(path)
+    
+    return '\n'.join(markdown_output)
+
+path = '.'
+allowed_extensions = ('.txt', '.md', '.py')
+
+markdown_result = dump_dir_tree_with_content_markdown(path, allowed_extensions)
+print(markdown_result)
