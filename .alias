@@ -1,13 +1,11 @@
-# common
+# git
 alias gd="git diff"
-alias ec="emacsclient"
-alias e="emacsclient"
 # https://coderwall.com/p/euwpig/a-better-git-log
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias glp="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit -p"
-alias p="perl6"
-alias ls="ls --color=auto"
-alias grep="grep --color=auto"
+alias pr="gh pr list --author \"@me\""
+alias pra="gh pr list"
+alias prl='gh_pr_list_formatted'
 
 function gs () {
     git log -S "$1"
@@ -17,24 +15,38 @@ function gsp () {
     git log -S "$1" -p
 }
 
+gh_pr_list_formatted() {
+    gh pr list --json number,title,url,author,headRefName --template '
+{{range .}}#{{hyperlink .url (printf "%.0f" .number)}} {{printf "%-30.30s" (printf "%.30s" .headRefName)}} {{printf "%-20.20s" (printf "%.20s" .author.login)}} {{printf "%-70.70s" (printf "%.70s" .title)}}
+{{end}}'
+}
 
-# mac only
-if [ "$OSTYPE" = "darwin17" ]; then
-alias ls="gls --color=auto"
-alias find="gfind"
-alias tee="gtee"
-alias uniq="guniq"
-alias grep="ggrep --color=auto"
-alias cp="gcp"
-alias rm="grm"
-alias sed="gsed"
-alias date="gdate"
-alias stat="gstat"
+# tools
+alias ripgrep=rg
+alias zz="zellij"
+alias wm='workmux'
+alias ec="emacsclient"
+alias e="emacsclient"
+
+# browsers
+alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+alias chrome-canary="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary"
+alias chromium="/Applications/Chromium.app/Contents/MacOS/Chromium"
+
+# coreutils & shell
+alias ls="ls --color=auto"
+alias grep="grep --color=auto"
+
+# mac: use GNU coreutils
+if [[ "$OSTYPE" == darwin* ]]; then
+    alias ls="gls --color=auto"
+    alias find="gfind"
+    alias tee="gtee"
+    alias uniq="guniq"
+    alias grep="ggrep --color=auto"
+    alias cp="gcp"
+    alias rm="grm"
+    alias sed="gsed"
+    alias date="gdate"
+    alias stat="gstat"
 fi
-
-
-# linux only
-alias naverline="env LC_ALL=zh_TW.UTF-8 WINPREFIX=~/LINE/ wine ~/LINE/Line.exe"
-alias evernote=" wine ~/.wine/drive_c/Program\ Files\ \(x86\)/Evernote/Evernote/Evernote.exe"
-alias kindle="wine /home/copyleft/.wine/drive_c/Program\ Files\ \(x86\)/Amazon/Kindle/Kindle.exe"
-alias zeegaree="python /opt/zeegaree/zeegaree.py"
