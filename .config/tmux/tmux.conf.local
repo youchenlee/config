@@ -6,7 +6,7 @@
 #         without any warranty.
 #         Copyright 2012— Gregory Pakosz (@gpakosz).
 
-bind C-s display-popup -h 30 -w 100 -E "workmux dashboard"
+bind C-s display-popup -h 30 -w 100 -E "workmux dashboard" #!important
 bind-key -n ‰ send-keys -H 0a # newline (claude code/codex/etc)
 
 # -- bindings ------------------------------------------------------------------
