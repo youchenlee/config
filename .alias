@@ -27,6 +27,8 @@ alias zz="zellij"
 alias wm='workmux'
 alias ec="emacsclient"
 alias e="emacsclient"
+alias ff='rg --files | sk --preview="bat {} --color=always"'
+alias aga="ag dev new -a"
 
 # browsers
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
@@ -45,7 +47,7 @@ if [[ "$OSTYPE" == darwin* ]]; then
     alias uniq="guniq"
     alias grep="ggrep --color=auto"
     alias cp="gcp"
-    alias rm="grm"
+    alias rm="trash"
     alias sed="gsed"
     alias date="gdate"
     alias stat="gstat"
