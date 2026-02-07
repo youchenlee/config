@@ -3,4 +3,4 @@
 	name = Youchen Lee
 	email = copyleft@utcr.org
 [core]
-	excludesfile = /Users/copyleft/.gitignore_global
+	excludesfile = ~/.gitignore_global
